@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Indonesia Future Leaders Hub (IFLH) membentuk generasi pemimpin Indonesia yang holistik, berwawasan luas, dan berdampak nyata.">
+  <meta property="og:title" content="Indonesia Future Leaders Hub — Shaping Holistic Leaders">
+  <meta property="og:description" content="A new kind of leadership ecosystem for Indonesian high school and university student leaders.">
+  <title>Indonesia Future Leaders Hub · Shaping Holistic Leaders</title>
+
+  <!-- Google Fonts: Inter + Poppins (Brand Tagline Alignment) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#f4af40',
+              navy: '#002e72',
+              slate: '#2a3a54',
+              charcoal: '#1c1d22',
+            }
+          },
+          fontFamily: {
+            serif: ['"Poppins"', '"Inter"', 'sans-serif'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+            tagline: ['"Poppins"', '"Inter"', 'sans-serif'],
+            display: ['"Poppins"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Iconify (Solar Icons library) -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <style>
+    /* Global Luxury Constraints & Reset */
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1c1d22;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero Background Slider Fade */
+    .hero-slide {
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    .hero-slide.active {
+      opacity: 1;
+    }
+
+    /* Custom Selection */
+    ::selection {
+      background-color: #f4af40;
+      color: #1c1d22;
+    }
+  </style>
+</head>
+<body class="relative overflow-x-hidden antialiased bg-white text-[#1c1d22]">
+
+  <!-- Top Progress Bar (Luxury Scroll Indicator) -->
+  <div id="progress-bar" class="fixed top-0 left-0 h-[2.5px] bg-[#f4af40] z-[9999] w-0 transition-all duration-75 ease-out"></div>
+
+  <!-- Sticky Navbar (Transparent to Solid Luxury Transition) -->
+  <header id="navbar" class="fixed top-0 w-full z-[1000] transition-all duration-500 border-b border-white/10 text-white" data-od-id="path-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <!-- Brand Logo Banner -->
+      <a href="#hero" class="flex items-center group py-1" data-od-id="nav-brand" aria-label="Indonesia Future Leaders Hub">
+        <img id="nav-logo" src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" class="h-8 sm:h-11 md:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-xs uppercase tracking-[0.18em] font-medium" aria-label="Main Navigation">
+        <a href="#tentang" class="hover:text-[#f4af40] transition-colors py-2">Tentang</a>
+        <a href="#program" class="hover:text-[#f4af40] transition-colors py-2">NSLC 2026</a>
+        <a href="#mitra" class="hover:text-[#f4af40] transition-colors py-2">Kolaborasi</a>
+      </nav>
+
+      <!-- Action Button & Mobile Menu Toggle -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <a href="nslc-2026.html#register" data-od-id="nav-cta" class="hidden sm:inline-flex rounded-none border border-[#f4af40] bg-[#f4af40] text-[#1c1d22] hover:bg-white hover:text-[#002e72] hover:border-white px-3.5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] transition-all duration-300 shadow-sm items-center gap-1.5 sm:gap-2 min-h-[44px]">
+          <span>Register Now</span>
+          <iconify-icon icon="solar:arrow-right-linear" class="text-xs sm:text-sm"></iconify-icon>
+        </a>
+
+        <!-- Mobile Menu Toggle Button (Touch Target 44x44px) -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center text-current hover:text-[#f4af40] focus:outline-none" aria-label="Toggle navigasi mobile" aria-expanded="false">
+          <iconify-icon id="mobile-menu-icon" icon="solar:hamburger-menu-linear" class="text-2xl"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#1c1d22]/98 backdrop-blur-md border-t border-white/10 px-4 py-4 space-y-1 text-white shadow-xl">
+      <a href="#tentang" class="mobile-nav-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-neutral-200 hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Tentang</a>
+      <a href="#lensa" class="mobile-nav-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-neutral-200 hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Lima Lensa</a>
+      <a href="#program" class="mobile-nav-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-neutral-200 hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">NSLC 2026</a>
+      <a href="#mitra" class="mobile-nav-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-neutral-200 hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Kolaborasi</a>
+      <div class="pt-2 border-t border-white/10">
+        <a href="nslc-2026.html#register" class="mobile-nav-link w-full text-center block bg-[#f4af40] text-[#1c1d22] font-semibold py-3 text-xs uppercase tracking-[0.16em] min-h-[44px] flex items-center justify-center">
+          Register Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION (Full-Height Luxury Carousel with Overlapping Booking/Teaser Widget) -->
+    <section id="hero" class="min-h-[100dvh] relative overflow-hidden flex items-center justify-center text-white py-16 sm:py-24" data-od-id="hero-section">
+      <!-- 3-Image Carousel Background Slides -->
+      <div class="absolute inset-0 z-0">
+        <div class="hero-slide active absolute inset-0 bg-cover bg-center" style="background-image: url('assets/landing-page-background-1.png');"></div>
+        <div class="hero-slide absolute inset-0 bg-cover bg-center" style="background-image: url('assets/landing-page-background-2.png');"></div>
+        <div class="hero-slide absolute inset-0 bg-cover bg-center" style="background-image: url('assets/landing-page-background-3.png');"></div>
+      </div>
+
+      <!-- Luxury Contrast Overlays -->
+      <div class="absolute inset-0 bg-[#1c1d22]/55 z-10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1c1d22] via-[#002e72]/40 to-transparent z-10"></div>
+
+      <!-- Hero Main Content -->
+      <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center pt-8 sm:pt-14 pb-8 sm:pb-10">
+        <!-- Main Brand Logo (Prominent Luxury Emblem) -->
+        <div class="mb-4 sm:mb-6 flex justify-center" data-od-id="hero-main-logo">
+          <img src="assets/main_logo_iflh_white.png" alt="Indonesia Future Leaders Hub" class="w-32 sm:w-44 md:w-52 max-w-[240px] h-auto object-contain mx-auto transition-transform duration-300 hover:scale-[1.02]" width="990" height="560">
+        </div>
+
+        <!-- Tagline Headline matching iflh_tagline.png: Poppins geometric sans, Line 1 white, Line 2 italic brand orange -->
+        <h1 class="font-tagline text-2xl sm:text-4xl md:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.18] sm:leading-[1.14] text-white drop-shadow-sm" style="font-family: 'Poppins', 'Inter', sans-serif;">
+          <span class="block text-white">Shaping the Next Generation</span>
+          <span class="block italic text-[#f4af40] mt-1 sm:mt-1.5">of Holistic Indonesian Leaders</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="mt-4 sm:mt-6 text-xs sm:text-base md:text-lg text-neutral-200/90 font-normal max-w-2xl mx-auto leading-relaxed">
+          Mempersiapkan siswa SMA hingga mahasiswa dengan pemahaman holistik tentang dunia dan Indonesia — memimpin dengan kejernihan, empati, dan dampak nyata.
+        </p>
+
+        <!-- CTA Button -->
+        <div class="mt-6 sm:mt-9 flex items-center justify-center">
+          <a href="#program" data-od-id="hero-nslc-cta" class="w-full sm:w-auto min-h-[44px] rounded-none bg-[#f4af40] text-[#1c1d22] hover:bg-white hover:text-[#002e72] px-6 sm:px-9 py-3.5 sm:py-4 text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all duration-300 shadow-xl flex items-center justify-center gap-2 sm:gap-3">
+            <span>National Student Leaders Conference 2026</span>
+            <iconify-icon icon="solar:arrow-right-down-linear" class="text-sm sm:text-base"></iconify-icon>
+          </a>
+        </div>
+      </div>
+
+      <!-- Slide Indicators (Luxury Linear Bars) -->
+      <div class="absolute bottom-10 right-8 sm:right-16 z-20 hidden sm:flex items-center gap-2">
+        <button class="hero-dot w-8 h-[3px] bg-[#f4af40] transition-all" aria-label="Slide 1"></button>
+        <button class="hero-dot w-8 h-[3px] bg-white/30 hover:bg-white/60 transition-all" aria-label="Slide 2"></button>
+        <button class="hero-dot w-8 h-[3px] bg-white/30 hover:bg-white/60 transition-all" aria-label="Slide 3"></button>
+      </div>
+
+      <!-- Scroll Down Cue -->
+      <a href="#tentang" class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/60 hover:text-white flex flex-col items-center gap-1 transition-colors" aria-label="Scroll ke konten">
+        <span class="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+        <iconify-icon icon="solar:alt-arrow-down-linear" class="text-base sm:text-lg animate-bounce"></iconify-icon>
+      </a>
+    </section>
+
+    <!-- OVERLAPPING QUICK-GLANCE WIDGET (Luxury Teaser Bar Adapted from Prompt) -->
+    <div class="relative z-30 -mt-10 sm:-mt-14 max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="rounded-none bg-white border border-neutral-200 shadow-2xl p-5 sm:p-7 lg:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-center">
+        <!-- Col 1: Program Badge -->
+        <div class="border-b sm:border-b-0 sm:border-r border-neutral-200 pb-4 sm:pb-0 sm:pr-4 lg:pr-6">
+          <span class="block text-[10px] font-sans font-semibold tracking-[0.2em] text-[#002e72] uppercase">Flagship Initiative</span>
+          <h3 class="font-serif text-lg font-bold text-[#1c1d22] mt-1 leading-snug">NSLC 2026</h3>
+          <p class="text-xs text-neutral-500 mt-1">National Student Leaders Conference</p>
+        </div>
+
+        <!-- Col 2: Date & Schedule -->
+        <div class="border-b sm:border-b-0 lg:border-r border-neutral-200 pb-4 sm:pb-0 sm:pl-2 lg:pl-0 sm:pr-4 lg:pr-6 flex items-start gap-3">
+          <iconify-icon icon="solar:calendar-date-bold" class="text-2xl text-[#f4af40] mt-0.5 shrink-0"></iconify-icon>
+          <div>
+            <span class="block text-[10px] font-sans font-semibold tracking-[0.16em] text-neutral-400 uppercase">Jadwal Acara</span>
+            <p class="text-sm font-semibold text-[#1c1d22]">3–4 Oktober 2026</p>
+            <p class="text-xs text-neutral-500">Sabtu–Minggu · 08.00–20.30 WIB</p>
+          </div>
+        </div>
+
+        <!-- Col 3: Location / Venue -->
+        <div class="border-b sm:border-b-0 sm:border-r border-neutral-200 pb-4 sm:pb-0 sm:pr-4 lg:pr-6 flex items-start gap-3 pt-2 sm:pt-0">
+          <iconify-icon icon="solar:map-point-bold" class="text-2xl text-[#002e72] mt-0.5 shrink-0"></iconify-icon>
+          <div>
+            <span class="block text-[10px] font-sans font-semibold tracking-[0.16em] text-neutral-400 uppercase">Lokasi Penyelenggaraan</span>
+            <p class="text-sm font-semibold text-[#1c1d22]">University Club Jakarta</p>
+            <p class="text-xs text-neutral-500">Kebayoran Baru, Jakarta Selatan</p>
+            <a href="https://maps.google.com/?q=University+Club+Jakarta" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-medium text-[#002e72] hover:text-[#f4af40] mt-1 transition-colors min-h-[36px] py-1">
+              <span>Google Maps</span>
+              <iconify-icon icon="solar:arrow-right-up-linear" class="text-[10px]"></iconify-icon>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 4: Action Button -->
+        <div class="flex justify-start sm:justify-end pt-2 sm:pt-0 sm:pl-2 lg:pl-0">
+          <a href="nslc-2026.html" class="w-full rounded-none bg-[#002e72] hover:bg-[#f4af40] text-white hover:text-[#1c1d22] py-3.5 sm:py-4 px-4 sm:px-6 text-xs font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em] transition-all duration-300 text-center flex items-center justify-center gap-2 shadow-md min-h-[44px]">
+            <span>Detail &amp; Registrasi</span>
+            <iconify-icon icon="solar:arrow-right-linear" class="text-sm"></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: ABOUT / VISI (Editorial Split Luxury Layout) -->
+    <section id="tentang" class="py-20 sm:py-28 lg:py-32 bg-[#fafafa]" data-od-id="about-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20 items-start">
+          <!-- Left Column: Title & Eyebrow -->
+          <div class="lg:col-span-5 reveal">
+            <span class="block text-xs font-sans tracking-[0.25em] uppercase text-[#002e72] font-semibold mb-3">Tentang Organisasi</span>
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#1c1d22] font-normal leading-tight tracking-tight">
+              Kepemimpinan sejati berawal dari <span class="italic font-serif text-[#002e72]">cara melihat</span> dunia.
+            </h2>
+            <div class="w-12 sm:w-16 h-[2px] bg-[#f4af40] mt-5 sm:mt-8"></div>
+          </div>
+
+          <!-- Right Column: Narrative & Values -->
+          <div class="lg:col-span-7 space-y-5 sm:space-y-6 text-neutral-700 leading-relaxed font-light text-sm sm:text-base md:text-lg reveal">
+            <p class="text-lg sm:text-xl md:text-2xl text-[#1c1d22] font-serif font-normal leading-snug">
+              Kami memperlengkapi generasi pemimpin Indonesia berikutnya bukan hanya dengan keterampilan teknis, melainkan dengan pemahaman yang utuh tentang dunia dan posisi Indonesia di dalamnya.
+            </p>
+            <p>
+              Di Indonesia Future Leaders Hub (IFLH), kami percaya bahwa pimpinan pelajar — baik di bangku SMA/SMK maupun perguruan tinggi — membutuhkan kejernihan intelektual, empati sosial yang mendalam, dan keberanian untuk menghadirkan dampak nyata.
+            </p>
+            <p>
+              Melalui program eksplorasi intensif dan dialog lintas disiplin, kami membuka ruang bagi calon pemimpin untuk mengintegrasikan sains, seni, ekonomi, riset, dan kebijakan publik ke dalam satu visi kepemimpinan yang holistik.
+            </p>
+
+            <!-- 3 Stat / Value Rows -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 sm:pt-8 border-t border-neutral-200 mt-6 sm:mt-8">
+              <div>
+                <span class="block font-serif text-3xl sm:text-4xl text-[#002e72] font-semibold">5 Lensa</span>
+                <span class="block text-xs font-sans uppercase tracking-[0.14em] text-neutral-500 mt-1">Eksplorasi Holistik</span>
+              </div>
+              <div>
+                <span class="block font-serif text-3xl sm:text-4xl text-[#002e72] font-semibold">34+ Provinsi</span>
+                <span class="block text-xs font-sans uppercase tracking-[0.14em] text-neutral-500 mt-1">Jangkauan Pemimpin Pelajar</span>
+              </div>
+              <div>
+                <span class="block font-serif text-3xl sm:text-4xl text-[#002e72] font-semibold">1 Misi</span>
+                <span class="block text-xs font-sans uppercase tracking-[0.14em] text-neutral-500 mt-1">Dampak Kepemimpinan Nyata</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FIVE LENSES (S.A.B.R.I Framework) -->
+    <section id="lensa" class="py-16 sm:py-24 lg:py-28 bg-white border-t border-b border-neutral-200" data-od-id="lenses-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16 reveal">
+          <span class="text-xs font-sans tracking-[0.25em] uppercase text-[#002e72] font-semibold">Through a Holistic Lens</span>
+          <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-[#1c1d22] font-semibold mt-2 sm:mt-3 tracking-tight">
+            Kerangka Lensa <span class="text-[#f4af40]">S.A.B.R.I</span>
+          </h2>
+          <p class="text-neutral-600 font-light mt-3 sm:mt-4 text-sm sm:text-base md:text-lg">
+            Dalam setiap inisiatif, kami menghadirkan lima lensa eksplorasi untuk membantu calon pemimpin membaca keterhubungan antara gagasan, peradaban, dan masa depan.
+          </p>
+        </div>
+
+        <!-- S.A.B.R.I Presentation: Centered Large Infographic Diagram -->
+        <div class="max-w-4xl lg:max-w-5xl mx-auto flex justify-center reveal px-2 sm:px-4">
+          <div class="relative w-full flex justify-center">
+            <img src="assets/SABRI-cropped.png" alt="Kerangka Lensa S.A.B.R.I - A Holistic View" class="w-full max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-auto object-contain mx-auto drop-shadow-sm transition-transform duration-500 hover:scale-[1.01]" width="1080" height="790">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FEATURED PROGRAM SHOWCASE (NSLC 2026 High-Fidelity Teaser) -->
+    <section id="program" class="py-20 sm:py-28 lg:py-32 bg-[#fafafa]" data-od-id="program-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="mb-8 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 reveal">
+          <div>
+            <span class="text-xs font-sans tracking-[0.25em] uppercase text-[#002e72] font-semibold">Featured Program</span>
+            <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl text-[#1c1d22] font-normal mt-1 sm:mt-2 tracking-tight">
+              National Student Leaders Conference 2026
+            </h2>
+          </div>
+          <p class="text-neutral-500 max-w-md text-xs sm:text-sm leading-relaxed font-light">
+            Konferensi intensif dua hari bagi pimpinan organisasi pelajar se-Indonesia di University Club Jakarta.
+          </p>
+        </div>
+
+        <!-- Luxury Split Feature Card -->
+        <div class="rounded-none border border-neutral-200 bg-[#1c1d22] text-white overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 reveal">
+          <!-- Left Visual Side -->
+          <div class="lg:col-span-5 relative min-h-[260px] sm:min-h-[340px] lg:min-h-full">
+            <img src="assets/nslc-conference-stock.jpg" alt="National Student Leaders Conference Ambience" class="absolute inset-0 w-full h-full object-cover" width="1200" height="800">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1c1d22] via-[#002e72]/25 to-transparent"></div>
+            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+              <span class="rounded-none bg-[#f4af40] text-[#1c1d22] text-[10px] font-semibold uppercase tracking-[0.2em] px-2.5 py-1 sm:px-3 sm:py-1.5">
+                Official Edition 2026
+              </span>
+            </div>
+          </div>
+
+          <!-- Right Content Side -->
+          <div class="lg:col-span-7 p-6 sm:p-10 lg:p-14 flex flex-col justify-between">
+            <div>
+              <div class="text-xs tracking-[0.2em] text-[#f4af40] uppercase font-semibold mb-2 sm:mb-3">
+                <span>National Leadership Conference</span>
+              </div>
+
+              <h3 class="font-serif text-2xl sm:text-3xl md:text-4xl text-white font-normal leading-snug">
+                Understanding the World, Finding Your Place in It
+              </h3>
+
+              <p class="mt-4 sm:mt-5 text-neutral-300 font-light text-sm sm:text-base leading-relaxed">
+                NSLC 2026 dirancang sebagai arena dialektika intelektual bagi ketua OSIS, MPK, Pramuka, PMR, dan pimpinan mahasiswa. Menghubungkan peserta dengan para tokoh nasional, menteri, investor ventura, dan pakar lintas bidang.
+              </p>
+
+              <!-- Highlights Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 my-6 sm:my-8 py-5 sm:py-6 border-y border-white/10">
+                <div>
+                  <span class="block text-[10px] uppercase tracking-[0.2em] text-[#f4af40]">Waktu &amp; Format</span>
+                  <span class="block font-serif text-base sm:text-lg font-semibold text-white mt-1">3–4 Okt 2026</span>
+                  <span class="block text-xs text-neutral-400">Offline (Pulang-hari)</span>
+                </div>
+                <div>
+                  <span class="block text-[10px] uppercase tracking-[0.2em] text-[#f4af40]">Tempat Pelaksanaan</span>
+                  <span class="block font-serif text-base sm:text-lg font-semibold text-white mt-1">University Club</span>
+                  <span class="block text-xs text-neutral-400">Kebayoran Baru, Jakarta</span>
+                  <a href="https://maps.google.com/?q=University+Club+Jakarta" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-[#f4af40] hover:text-white mt-1 transition-colors min-h-[32px] py-1">
+                    <span>Google Maps</span>
+                    <iconify-icon icon="solar:arrow-right-up-linear" class="text-[10px]"></iconify-icon>
+                  </a>
+                </div>
+                <div>
+                  <span class="block text-[10px] uppercase tracking-[0.2em] text-[#f4af40]">Kriteria Peserta</span>
+                  <span class="block font-serif text-base sm:text-lg font-semibold text-white mt-1">Pimpinan Pelajar</span>
+                  <span class="block text-xs text-neutral-400">SMA/SMK &amp; Mahasiswa</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action & Link to Subpage -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+              <a href="nslc-2026.html" class="w-full sm:w-auto rounded-none bg-[#f4af40] hover:bg-white text-[#1c1d22] hover:text-[#002e72] px-6 sm:px-8 py-3.5 sm:py-4 text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] transition-all duration-300 text-center flex items-center justify-center gap-2 min-h-[44px]">
+                <span>Explore Program &amp; Speakers</span>
+                <iconify-icon icon="solar:arrow-right-linear" class="text-sm"></iconify-icon>
+              </a>
+              <a href="nslc-2026.html#register" class="w-full sm:w-auto rounded-none border border-white/20 hover:border-white text-white px-6 sm:px-8 py-3.5 sm:py-4 text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] transition-all duration-300 text-center flex items-center justify-center min-h-[44px]">
+                <span>Daftar Sekarang</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: IN COLLABORATION WITH (Partner Ecosystem) -->
+    <section id="mitra" class="py-16 sm:py-24 lg:py-28 bg-white border-t border-neutral-200" data-od-id="partners-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="text-xs font-sans tracking-[0.25em] uppercase text-[#002e72] font-semibold">In Collaboration With</span>
+        <h2 class="font-display text-2xl sm:text-3xl md:text-4xl text-[#1c1d22] font-semibold mt-2 sm:mt-3 max-w-2xl mx-auto tracking-tight">
+          Ekosistem Kolaboratif untuk Generasi Masa Depan
+        </h2>
+        <p class="text-neutral-500 font-light mt-2 sm:mt-3 max-w-lg mx-auto text-xs sm:text-sm">
+          Didukung oleh institusi pendidikan, filantropi, dan media yang berdedikasi melahirkan pemimpin berkualitas.
+        </p>
+
+        <!-- Partner Logos Grid (2 Collaboration Partners) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-12 max-w-2xl mx-auto">
+          <!-- Partner 1: The Sabri Podcast -->
+          <div class="rounded-none bg-[#fafafa] border border-neutral-200 px-5 py-4 sm:px-8 sm:py-6 flex flex-col items-center justify-center h-28 sm:h-32 hover:border-[#002e72] transition-all duration-300 shadow-sm group">
+            <img src="assets/sabri-podcast-cropped.png" alt="The Sabri Podcast" class="h-10 sm:h-12 md:h-13 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1004" height="450">
+            <span class="block text-[10px] uppercase tracking-[0.16em] text-neutral-400 font-medium mt-2">The Sabri Podcast</span>
+          </div>
+
+          <!-- Partner 2: University Club Jakarta -->
+          <div class="rounded-none bg-[#fafafa] border border-neutral-200 px-5 py-4 sm:px-8 sm:py-6 flex flex-col items-center justify-center h-28 sm:h-32 hover:border-[#002e72] transition-all duration-300 shadow-sm group">
+            <img src="assets/university-club-cropped.png" alt="University Club Jakarta" class="h-10 sm:h-12 md:h-13 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1080" height="532">
+            <span class="block text-[10px] uppercase tracking-[0.16em] text-neutral-400 font-medium mt-2">University Club Jakarta</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (Luxury 4-Column Layout with Clean Borders) -->
+  <footer class="bg-[#1c1d22] text-white pt-16 sm:pt-20 pb-10 sm:pb-12 border-t border-white/10" data-od-id="footer">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 sm:pb-16 border-b border-white/10">
+        <!-- Col 1: Identity & Mission -->
+        <div class="sm:col-span-2 lg:col-span-5 space-y-4">
+          <div class="flex items-center">
+            <img src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" class="h-9 sm:h-11 w-auto object-contain" width="880" height="200">
+          </div>
+          <p class="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed max-w-sm">
+            Membangun ekosistem kepemimpinan yang holistik bagi pelajar Indonesia. Mengintegrasikan pemikiran tajam, kepekaan budaya, dan integritas publik.
+          </p>
+          <div class="pt-1">
+            <span class="text-xs text-[#f4af40] tracking-[0.18em] uppercase font-semibold">Shaping Holistic Leaders</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="lg:col-span-2 space-y-1 text-xs tracking-[0.14em] uppercase font-medium">
+          <span class="block text-neutral-400 font-semibold mb-3 sm:mb-4 text-[10px] tracking-[0.2em] text-[#f4af40]">Organisasi</span>
+          <div><a href="#hero" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Beranda</a></div>
+          <div><a href="#tentang" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Tentang Kami</a></div>
+          <div><a href="#lensa" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Lima Lensa</a></div>
+          <div><a href="#mitra" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Kolaborasi</a></div>
+        </div>
+
+        <!-- Col 3: Program Links -->
+        <div class="lg:col-span-2 space-y-1 text-xs tracking-[0.14em] uppercase font-medium">
+          <span class="block text-neutral-400 font-semibold mb-3 sm:mb-4 text-[10px] tracking-[0.2em] text-[#f4af40]">Program</span>
+          <div><a href="nslc-2026.html" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">NSLC 2026 Overview</a></div>
+          <div><a href="nslc-2026.html#speakers" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Keynote Speakers</a></div>
+          <div><a href="nslc-2026.html#agenda" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Rundown 2 Hari</a></div>
+          <div><a href="nslc-2026.html#register" class="hover:text-[#f4af40] transition-colors py-2 min-h-[40px] inline-flex items-center">Formulir Pendaftaran</a></div>
+        </div>
+
+        <!-- Col 4: Secretariat & Venue Info -->
+        <div class="sm:col-span-2 lg:col-span-3 space-y-3">
+          <span class="block text-neutral-400 font-semibold mb-3 sm:mb-4 text-[10px] tracking-[0.2em] text-[#f4af40] uppercase">Sekretariat &amp; Venue</span>
+          <p class="text-neutral-300 text-xs sm:text-sm font-light">
+            <strong class="font-medium text-white block">University Club Jakarta</strong>
+            Jl. Brawijaya VIII No. 8, Kebayoran Baru<br>
+            Jakarta Selatan, DKI Jakarta 12160
+          </p>
+
+          <!-- Mini OpenStreetMap Embed -->
+          <div class="pt-1">
+            <div class="w-full h-32 overflow-hidden border border-white/15 bg-neutral-900 shadow-inner">
+              <iframe title="Peta Mini University Club Jakarta" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=106.7990%2C-6.2560%2C106.8110%2C-6.2460&amp;layer=mapnik&amp;marker=-6.2510%2C106.8050" class="w-full h-full border-0" loading="lazy"></iframe>
+            </div>
+            <a href="https://maps.google.com/?q=University+Club+Jakarta" target="_blank" rel="noopener noreferrer" class="mt-2.5 inline-flex items-center gap-1.5 text-xs text-[#f4af40] hover:text-white transition-colors font-medium min-h-[44px] py-2">
+              <span>Buka di Google Maps</span>
+              <iconify-icon icon="solar:arrow-right-up-linear" class="text-xs"></iconify-icon>
+            </a>
+          </div>
+
+          <p class="text-xs text-neutral-400 pt-0.5">
+            Email: <a href="mailto:info@iflh.org" class="text-neutral-200 hover:text-[#f4af40] py-1 inline-block">info@iflh.org</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 font-light gap-3 sm:gap-4 text-center sm:text-left">
+        <p>© 2026 Indonesia Future Leaders Hub. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-neutral-300 transition-colors py-2 min-h-[40px] inline-flex items-center">Kebijakan Privasi</a>
+          <a href="#" class="hover:text-neutral-300 transition-colors py-2 min-h-[40px] inline-flex items-center">Syarat &amp; Ketentuan</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: Scroll Progress, Navbar Toggle, Carousel, & Scroll Reveal -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Progress Bar Scroll Indicator
+      const progressBar = document.getElementById('progress-bar');
+      window.addEventListener('scroll', () => {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        if (progressBar) {
+          progressBar.style.width = scrolled + '%';
+        }
+      }, { passive: true });
+
+      // 2. Navbar Scroll State Change (Transparent to Luxury Solid White)
+      const navbar = document.getElementById('navbar');
+      const navLogo = document.getElementById('nav-logo');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.remove('bg-transparent', 'text-white', 'border-white/10');
+          navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'text-[#1c1d22]', 'shadow-sm', 'border-neutral-200');
+          if (navLogo) navLogo.src = 'assets/small_banner_iflh_logo.png';
+        } else {
+          navbar.classList.add('text-white', 'border-white/10');
+          navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'text-[#1c1d22]', 'shadow-sm', 'border-neutral-200');
+          if (navLogo) navLogo.src = 'assets/small_banner_iflh_white.png';
+        }
+      }, { passive: true });
+
+      // 2b. Mobile Nav Drawer Toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          const isClosed = mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden', !isClosed);
+          menuBtn.setAttribute('aria-expanded', isClosed ? 'true' : 'false');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // 3. Hero Carousel (3 Slides Automatic 5-second Crossfade)
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.hero-dot');
+      let currentSlide = 0;
+      let slideInterval;
+
+      function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) {
+          dots[currentSlide].classList.remove('bg-[#f4af40]');
+          dots[currentSlide].classList.add('bg-white/30');
+        }
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) {
+          dots[currentSlide].classList.add('bg-[#f4af40]');
+          dots[currentSlide].classList.remove('bg-white/30');
+        }
+      }
+
+      function startSlideShow() {
+        slideInterval = setInterval(() => {
+          goToSlide(currentSlide + 1);
+        }, 5000);
+      }
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          clearInterval(slideInterval);
+          goToSlide(idx);
+          startSlideShow();
+        });
+      });
+
+      startSlideShow();
+
+      // 4. Reveal on Scroll with IntersectionObserver
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      reveals.forEach(el => observer.observe(el));
+    });
+  </script>
+
+
+</body></html>
