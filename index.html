@@ -10,6 +10,9 @@
   <!-- Google Fonts: Inter + Poppins (Brand Tagline Alignment) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" as="image" href="assets/landing-page-background-1.jpg" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS via CDN -->
@@ -89,7 +92,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
       <!-- Brand Logo Banner -->
       <a href="#hero" class="flex items-center group py-1" data-od-id="nav-brand" aria-label="Indonesia Future Leaders Hub">
-        <img id="nav-logo" src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" class="h-8 sm:h-11 md:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+        <img id="nav-logo" src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" width="930" height="214" class="h-8 sm:h-11 md:h-13 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]">
       </a>
 
       <!-- Desktop Navigation Links -->
@@ -272,7 +275,7 @@
         <!-- S.A.B.R.I Presentation: Centered Large Infographic Diagram -->
         <div class="max-w-4xl lg:max-w-5xl mx-auto flex justify-center reveal px-2 sm:px-4">
           <div class="relative w-full flex justify-center">
-            <img src="assets/SABRI-cropped.png" alt="Kerangka Lensa S.A.B.R.I - A Holistic View" class="w-full max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-auto object-contain mx-auto drop-shadow-sm transition-transform duration-500 hover:scale-[1.01]" width="1080" height="790">
+            <img src="assets/SABRI-cropped.png" alt="Kerangka Lensa S.A.B.R.I - A Holistic View" class="w-full max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-auto object-contain mx-auto drop-shadow-sm transition-transform duration-500 hover:scale-[1.01]" width="1080" height="790" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
@@ -296,7 +299,7 @@
         <div class="rounded-none border border-neutral-200 bg-[#1c1d22] text-white overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 reveal">
           <!-- Left Visual Side -->
           <div class="lg:col-span-5 relative min-h-[260px] sm:min-h-[340px] lg:min-h-full">
-            <img src="assets/nslc-conference-stock.jpg" alt="National Student Leaders Conference Ambience" class="absolute inset-0 w-full h-full object-cover" width="1200" height="800">
+            <img src="assets/nslc-conference-stock.jpg" alt="National Student Leaders Conference Ambience" class="absolute inset-0 w-full h-full object-cover" width="1200" height="800" loading="lazy" decoding="async">
             <div class="absolute inset-0 bg-gradient-to-t from-[#1c1d22] via-[#002e72]/25 to-transparent"></div>
             <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
               
@@ -366,13 +369,13 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16 mt-8 sm:mt-10 max-w-2xl mx-auto">
           <!-- Partner 1: The Sabri Podcast -->
           <div class="flex flex-col items-center justify-center group py-2">
-            <img src="assets/sabri-podcast-cropped.png" alt="The Sabri Podcast" class="h-10 sm:h-12 md:h-14 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1004" height="450">
+            <img src="assets/sabri-podcast-cropped.png" alt="The Sabri Podcast" class="h-10 sm:h-12 md:h-14 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1004" height="450" loading="lazy" decoding="async">
             <span class="block text-xs uppercase tracking-[0.16em] text-neutral-600 font-medium mt-3">The Sabri Podcast</span>
           </div>
 
           <!-- Partner 2: University Club Jakarta -->
           <div class="flex flex-col items-center justify-center group py-2">
-            <img src="assets/university-club-cropped.png" alt="University Club Jakarta" class="h-10 sm:h-12 md:h-14 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1080" height="532">
+            <img src="assets/university-club-cropped.png" alt="University Club Jakarta" class="h-10 sm:h-12 md:h-14 max-w-[200px] w-auto object-contain transition-transform duration-300 group-hover:scale-105" width="1080" height="532" loading="lazy" decoding="async">
             <span class="block text-xs uppercase tracking-[0.16em] text-neutral-600 font-medium mt-3">University Club Jakarta</span>
           </div>
         </div>
@@ -387,7 +390,7 @@
         <!-- Col 1: Identity & Mission -->
         <div class="sm:col-span-2 lg:col-span-5 space-y-4">
           <div class="flex items-center">
-            <img src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" class="h-9 sm:h-11 w-auto object-contain" width="880" height="200">
+            <img src="assets/small_banner_iflh_white.png" alt="Indonesia Future Leaders Hub" class="h-9 sm:h-11 w-auto object-contain" width="930" height="214" loading="lazy" decoding="async">
           </div>
           <p class="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed max-w-sm">
             Membangun ekosistem kepemimpinan yang holistik bagi pelajar Indonesia. Mengintegrasikan pemikiran tajam, kepekaan budaya, dan integritas publik.
