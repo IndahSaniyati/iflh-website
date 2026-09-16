@@ -827,10 +827,31 @@
       });
     }
 
-    function handleFormSubmit(e) {
+    // ponytail: direct fetch to Apps Script Web App; upgrade to Cloudflare Worker proxy if spam/CORS limits hit
+    async function handleFormSubmit(e) {
       e.preventDefault();
-      document.getElementById('success-dialog').showModal();
-      e.target.reset();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const originalContent = btn.innerHTML;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Mengirim Data...</span>';
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbxvi5k9wsnZTIrMLGAOKGdU3kn3r61ERIvvsX0cDqi9yLh2TTEfDnRepQEu1gNybmzYTA/exec', {
+          method: 'POST',
+          body: JSON.stringify(payload)
+        });
+        document.getElementById('success-dialog').showModal();
+        form.reset();
+      } catch (err) {
+        alert('Gagal mengirim formulir. Silakan coba beberapa saat lagi.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
+      }
     }
   </script>
 
