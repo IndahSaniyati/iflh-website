@@ -14,6 +14,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <!-- Runtime CDNs: Tailwind JIT compiles the stylesheet in-browser; Iconify fetches icon data from api.iconify.design -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://code.iconify.design">
+  <link rel="preconnect" href="https://api.iconify.design">
   <link rel="preload" as="image" href="assets/nslc-hero-bg.jpg" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet">
 
@@ -43,7 +47,7 @@
   </script>
 
   <!-- Iconify Icons -->
-  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script defer src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
   <style>
     /* ponytail: native sticky header & dialog cover animations and modals without external JS libraries */
@@ -51,6 +55,9 @@
     body { font-family: 'Inter', sans-serif; }
     ::selection { background-color: #f4af40; color: #1c1d22; }
     dialog::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
+    /* FAQ disclosure: native <details> with a custom chevron instead of the UA marker */
+    summary { list-style: none; }
+    summary::-webkit-details-marker { display: none; }
   </style>
 </head>
 <body class="bg-white text-[#1c1d22] antialiased">
@@ -70,6 +77,7 @@
         <a href="#agenda" class="hover:text-[#f4af40] transition-colors py-2">Rundown</a>
         <a href="#timeline" class="hover:text-[#f4af40] transition-colors py-2">Timeline</a>
         <a href="#register" class="hover:text-[#f4af40] transition-colors py-2">Lokasi &amp; Pendaftaran</a>
+        <a href="#faq" class="hover:text-[#f4af40] transition-colors py-2">FAQ</a>
       </nav>
 
       <!-- Desktop Action & Mobile Toggle -->
@@ -93,6 +101,7 @@
       <a href="#agenda" class="nslc-mobile-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-white hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Rundown</a>
       <a href="#timeline" class="nslc-mobile-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-white hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Timeline</a>
       <a href="#register" class="nslc-mobile-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-white hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">Lokasi &amp; Pendaftaran</a>
+      <a href="#faq" class="nslc-mobile-link block px-3 py-3 text-xs uppercase tracking-[0.16em] font-medium text-white hover:text-[#f4af40] hover:bg-white/5 transition-colors min-h-[44px] flex items-center">FAQ</a>
       <div class="pt-2 border-t border-white/10">
         <a href="#register" class="nslc-mobile-link w-full text-center block bg-[#f4af40] text-[#1c1d22] font-semibold py-3 text-xs uppercase tracking-[0.16em] min-h-[44px] flex items-center justify-center">
           Daftar NSLC 2026
@@ -113,16 +122,14 @@
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-4xl">
-          <div class="mb-3 sm:mb-4">
-            <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#f4af40]">National Student Leaders Conference · 2026</span>
-          </div>
+          <img src="assets/nslc-2026-logo-white.png" alt="NSLC 2026 — National Student Leaders Conference" class="h-11 sm:h-16 lg:h-20 w-auto object-contain mb-6 sm:mb-8" width="800" height="199" fetchpriority="high">
 
           <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.15] text-white drop-shadow-sm">
             Understanding the World, <span class="italic text-[#f4af40]">Finding Your Place in It</span>
           </h1>
 
           <p class="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-neutral-200 font-light leading-relaxed max-w-3xl">
-            Konferensi intensif dua hari bagi pimpinan organisasi pelajar se-Indonesia (OSIS, MPK, Pramuka, PMR, dan mahasiswa). Bertukar wawasan bersama tokoh nasional, praktisi industri, dan pembuat kebijakan di University Club Jakarta.
+            Konferensi intensif dua hari bagi pimpinan organisasi pelajar se-Indonesia (OSIS, MPK, Pramuka, dan PMR). Bertukar wawasan bersama tokoh nasional, praktisi industri, dan pembuat kebijakan di University Club Jakarta.
           </p>
 
           <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
@@ -154,7 +161,7 @@
           <div>
             <span class="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.16em] text-[#f4af40]">Sasaran Peserta</span>
             <p class="font-serif text-base sm:text-lg font-semibold mt-0.5">Pimpinan Pelajar</p>
-            <p class="text-xs text-neutral-300">SMA/SMK &amp; Mahasiswa</p>
+            <p class="text-xs text-neutral-300">SMA/SMK/MA Sederajat</p>
           </div>
         </div>
       </div>
@@ -173,7 +180,7 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 sm:gap-6">
           <!-- Miftah Sabri -->
           <div class="group border border-neutral-200 bg-white hover:border-[#002e72] hover:shadow-md transition-all duration-300 flex flex-col" data-od-id="speaker-miftah-sabri">
             <div class="aspect-[4/5] bg-neutral-100 overflow-hidden">
@@ -181,9 +188,12 @@
             </div>
             <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between border-t border-neutral-100">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#002e72]">Opening Speech</span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[9px] font-semibold uppercase tracking-[0.04em] leading-tight text-[#002e72] min-w-0 break-words">Opening Speech</span>
+                  <img src="assets/university-club-cropped.png" alt="University Club Jakarta" class="h-6 w-16 object-contain shrink-0 opacity-90" loading="lazy" decoding="async" width="600" height="285">
+                </div>
                 <h3 class="font-serif text-lg sm:text-xl font-bold text-[#1c1d22] mt-1">Miftah Sabri</h3>
-                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Pendiri AKB &amp; University Club Jakarta</p>
+                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Pendiri Akademi Kader Bangsa &amp; University Club Jakarta</p>
               </div>
               <p class="text-xs text-neutral-600 mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-light">
                 Pengantar mendalam mengenai arah kepemimpinan nasional dan etos kader bangsa Indonesia.
@@ -198,7 +208,10 @@
             </div>
             <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between border-t border-neutral-100">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#002e72]">Keynote Session</span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[9px] font-semibold uppercase tracking-[0.04em] leading-tight text-[#002e72] min-w-0 break-words">Keynote Session</span>
+                  <img src="assets/logo_kepresidenan_istana.png" alt="Istana Kepresidenan Republik Indonesia" class="h-6 w-16 object-contain shrink-0 opacity-90" loading="lazy" decoding="async" width="400" height="139">
+                </div>
                 <h3 class="font-serif text-lg sm:text-xl font-bold text-[#1c1d22] mt-1">Dirgayuza Setiawan</h3>
                 <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Asisten Khusus Presiden RI</p>
               </div>
@@ -215,9 +228,12 @@
             </div>
             <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between border-t border-neutral-100">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#002e72]">Innovation in Public Policy</span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[9px] font-semibold uppercase tracking-[0.04em] leading-tight text-[#002e72] min-w-0 break-words">Innovation in Public Policy</span>
+                  <img src="assets/logo_danantara.png" alt="Danantara Indonesia" class="h-6 w-16 object-contain shrink-0 opacity-90" loading="lazy" decoding="async" width="400" height="104">
+                </div>
                 <h3 class="font-serif text-lg sm:text-xl font-bold text-[#1c1d22] mt-1">Windy Natriavi</h3>
-                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">SVP Development Investment Danantara</p>
+                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Senior Vice President Development Investment di Danantara DMF</p>
               </div>
               <p class="text-xs text-neutral-600 mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-light">
                 Inovasi kebijakan publik, mobilisasi modal pembangunan, dan solusi terukur persoalan sosial.
@@ -232,12 +248,35 @@
             </div>
             <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between border-t border-neutral-100">
               <div>
-                <span class="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#002e72]">Business &amp; Entrepreneurship</span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[9px] font-semibold uppercase tracking-[0.04em] leading-tight text-[#002e72] min-w-0 break-words">Business &amp; Entrepreneurship</span>
+                  <img src="assets/logo_bukalapak.png" alt="Bukalapak" class="h-6 w-16 object-contain shrink-0 opacity-90" loading="lazy" decoding="async" width="400" height="71">
+                </div>
                 <h3 class="font-serif text-lg sm:text-xl font-bold text-[#1c1d22] mt-1">Achmad Zaky</h3>
-                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Ex-CEO Bukalapak · Founding Partner Init-6</p>
+                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Co-Founder &amp; Ex-CEO Bukalapak &amp; Init-6</p>
               </div>
               <p class="text-xs text-neutral-600 mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-light">
                 Penciptaan nilai ekonomi baru, kewirausahaan berbasis teknologi, dan ekosistem ventura Indonesia.
+              </p>
+            </div>
+          </div>
+
+          <!-- Fauzan Zidni -->
+          <div class="group border border-neutral-200 bg-white hover:border-[#002e72] hover:shadow-md transition-all duration-300 flex flex-col" data-od-id="speaker-fauzan-zidni">
+            <div class="aspect-[4/5] bg-neutral-100 overflow-hidden">
+              <img src="assets/fauzan_zidni.png" alt="Fauzan Zidni" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" width="600" height="750">
+            </div>
+            <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between border-t border-neutral-100">
+              <div>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[9px] font-semibold uppercase tracking-[0.04em] leading-tight text-[#002e72] min-w-0 break-words">Arts, Society &amp; Creativity</span>
+                  <img src="assets/logo_badan_perfilman_indonesia.png" alt="Badan Perfilman Indonesia" class="h-6 w-16 object-contain shrink-0 opacity-90" loading="lazy" decoding="async" width="265" height="220">
+                </div>
+                <h3 class="font-serif text-lg sm:text-xl font-bold text-[#1c1d22] mt-1">Fauzan Zidni</h3>
+                <p class="text-xs text-neutral-500 mt-1 tracking-wide font-normal">Produser Film &amp; Ketua Badan Perfilman Indonesia</p>
+              </div>
+              <p class="text-xs text-neutral-600 mt-3 pt-3 border-t border-neutral-100 leading-relaxed font-light">
+                Bahasa sinema, narasi budaya, dan kekuatan ekspresi seni dalam menjaga nilai-nilai kemanusiaan.
               </p>
             </div>
           </div>
@@ -291,11 +330,7 @@
               </li>
               <li class="flex items-start gap-2.5">
                 <iconify-icon icon="solar:check-circle-bold" class="text-[#f4af40] text-base mt-0.5 shrink-0"></iconify-icon>
-                <span><strong class="text-white">Conference Kit:</strong> Notebook eksklusif, alat tulis, dan materi panduan program.</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <iconify-icon icon="solar:check-circle-bold" class="text-[#f4af40] text-base mt-0.5 shrink-0"></iconify-icon>
-                <span><strong class="text-white">Official Merchandise:</strong> T-shirt resmi NSLC 2026, lanyard, dan co-card.</span>
+                <span><strong class="text-white">Conference Kit:</strong> Lanyard dan totebag resmi NSLC 2026.</span>
               </li>
               <li class="flex items-start gap-2.5">
                 <iconify-icon icon="solar:check-circle-bold" class="text-[#f4af40] text-base mt-0.5 shrink-0"></iconify-icon>
@@ -338,7 +373,7 @@
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">08.00–09.00 WIB</span>
             <div>
               <h4 class="font-serif text-base font-bold text-[#1c1d22]">Kedatangan &amp; Registrasi Peserta</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Check-in, pembagian kit (buku panduan, merchandise), dan pembagian kelompok kerja.</p>
+              <p class="text-xs text-neutral-600 mt-0.5">Check-in, pembagian ID card dan participant kit, serta pembagian kelompok.</p>
             </div>
           </div>
 
@@ -347,24 +382,24 @@
             <div>
               <span class="text-[9px] uppercase tracking-wider font-semibold text-[#f4af40] bg-[#1c1d22] px-1.5 py-0.5">Opening</span>
               <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Sambutan Pembukaan — Miftah Sabri</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Arah besar IFLH, tujuan penyelenggaraan NSLC, dan etos pemimpin muda Indonesia.</p>
+              <p class="text-xs text-neutral-600 mt-0.5">Sambutan pembuka dan pengantar mengenai tujuan serta semangat program.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">09.30–11.00 WIB</span>
             <div>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Perkenalan &amp; Icebreaker Dinamis</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Membangun koneksi autentik antarpeserta dari berbagai provinsi di Indonesia.</p>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Sesi Perkenalan &amp; Icebreaker</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Icebreakers dan aktivitas kelompok untuk membangun koneksi antarpeserta dari berbagai provinsi.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">11.00–12.30 WIB</span>
             <div>
-              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Keynote 1</span>
+              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 1 · Keynote</span>
               <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">The World We Are In — Dirgayuza Setiawan</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Perubahan geopolitik global, disrupsi peradaban, dan posisi strategis Indonesia.</p>
+              <p class="text-xs text-neutral-600 mt-0.5">Memahami perubahan besar yang sedang terjadi di dunia dan bagaimana Indonesia berada di tengahnya.</p>
             </div>
           </div>
 
@@ -379,26 +414,58 @@
           <div class="p-4 sm:p-5 border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">13.30–15.00 WIB</span>
             <div>
-              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Keynote 2</span>
+              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 2</span>
               <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Innovation in Public Policy — Windy Natriavi</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Respon regulasi terhadap perubahan zaman dan inovasi untuk mengatasi masalah publik.</p>
+              <p class="text-xs text-neutral-600 mt-0.5">Bagaimana kebijakan publik merespons perubahan dan bagaimana inovasi menyelesaikan persoalan masyarakat.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-dashed border-neutral-300 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 text-neutral-600">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-medium text-neutral-500 tabular-nums">15.00–15.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-semibold text-[#1c1d22]">Istirahat</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Coffee break dan jeda antar sesi.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">15.30–17.00 WIB</span>
             <div>
-              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Keynote 3</span>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Business &amp; Entrepreneurship — Achmad Zaky</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Penciptaan nilai ekonomi baru, mentalitas wirausaha teknologi, dan peluang krisis.</p>
+              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 3</span>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Business, Economy &amp; Entrepreneurship — Achmad Zaky</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Bagaimana ekonomi dan dunia bisnis bekerja, bagaimana entrepreneur menciptakan nilai, serta peluang dari perubahan dunia.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">17.00–20.30 WIB</span>
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">17.00–18.00 WIB</span>
             <div>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Refleksi Kelompok, Makan Malam, &amp; Draf Proyek</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Sintesis materi hari pertama ke dalam draf karya kelompok. Pulang ke kediaman pada 20.30 WIB.</p>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Refleksi Kelompok</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Peserta merefleksikan beragam perspektif hari pertama dan mendiskusikan pertanyaan atau insight yang muncul.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">18.00–19.00 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Makan Malam &amp; Bonding</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Makan malam bersama dan aktivitas informal untuk memperkuat koneksi antarpeserta.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">19.00–20.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Persiapan Proyek Kreatif</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Peserta menentukan ide, format, dan pembagian peran untuk karya yang akan dibuat pada hari kedua.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-dashed border-neutral-300 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 text-neutral-600">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-medium text-neutral-500 tabular-nums">20.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-semibold text-[#1c1d22]">Penutup Hari Pertama</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Peserta pulang ke kediaman masing-masing.</p>
             </div>
           </div>
         </div>
@@ -406,19 +473,44 @@
         <!-- Day 2 Schedule -->
         <div id="panel-day2" class="space-y-3 hidden" role="tabpanel">
           <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">08.00–09.30 WIB</span>
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">08.00–09.00 WIB</span>
             <div>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Kedatangan &amp; Morning Reflection Circle</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Coffee, review intisari hari pertama, dan penyelarasan target kelompok hari kedua.</p>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Kedatangan &amp; Persiapan Peserta</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Coffee, check-in harian, dan penyelarasan target kelompok hari kedua.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">09.00–09.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Day 1 Recap: “One Thing I’m Taking With Me”</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Peserta menuliskan satu hal paling berkesan dari hari pertama, lalu membagikannya secara singkat dalam kelompok.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">09.30–12.30 WIB</span>
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">09.30–11.00 WIB</span>
             <div>
-              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 4 &amp; 5</span>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Science, AI &amp; Arts Society Exploration</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Disrupsi kecerdasan buatan, ekspresi seni, dan penjagaan nilai-nilai kemanusiaan.</p>
+              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 4</span>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Science, Technology &amp; AI</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Bagaimana perkembangan sains, teknologi, dan AI mengubah cara kita hidup, bekerja, dan membayangkan masa depan.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">11.00–12.30 WIB</span>
+            <div>
+              <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#002e72] px-1.5 py-0.5">Sesi 5</span>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Arts, Society &amp; Creativity — Fauzan Zidni</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Bagaimana seni, budaya, dan kreativitas membentuk cara manusia memahami dunia dan menciptakan perubahan.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-dashed border-neutral-300 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 text-neutral-600">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-medium text-neutral-500 tabular-nums">12.30–13.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-semibold text-[#1c1d22]">Makan Siang</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Istirahat siang sebelum keberangkatan kunjungan institusional.</p>
             </div>
           </div>
 
@@ -426,17 +518,33 @@
             <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">13.30–17.00 WIB</span>
             <div>
               <span class="text-[9px] uppercase tracking-wider font-semibold text-[#1c1d22] bg-[#f4af40] px-1.5 py-0.5">Kunjungan</span>
-              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Kunjungan Institusional Terpilih</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Peserta diberangkatkan ke institusi mitra untuk observasi langsung dinamika pengambilan keputusan.</p>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Kunjungan Institusional &amp; Perjalanan Balik ke Venue</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Kunjungan langsung ke institusi mitra untuk pengalaman dan perspektif baru, dilanjutkan perjalanan kembali ke University Club Jakarta.</p>
             </div>
           </div>
 
           <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">17.00–20.30 WIB</span>
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">17.00–19.00 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-bold text-[#1c1d22]">Proyek Kreatif &amp; Makan Malam</h4>
+              <p class="text-xs text-neutral-600 mt-0.5">Peserta mengembangkan karya kelompok berdasarkan wawasan dan pengalaman selama program.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-neutral-200 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-semibold text-[#002e72] tabular-nums">19.00–20.30 WIB</span>
             <div>
               <span class="text-[9px] uppercase tracking-wider font-semibold text-white bg-[#1c1d22] px-1.5 py-0.5">Penutupan</span>
               <h4 class="font-serif text-base font-bold text-[#1c1d22] mt-1">Presentasi Karya, Graduation &amp; Awarding</h4>
-              <p class="text-xs text-neutral-600 mt-0.5">Presentasi hasil karya di hadapan panel juri mentor, sertifikasi resmi, dan penutupan konferensi.</p>
+              <p class="text-xs text-neutral-600 mt-0.5">Presentasi hasil karya di hadapan panel mentor, sertifikasi resmi, dan penutupan konferensi.</p>
+            </div>
+          </div>
+
+          <div class="p-4 sm:p-5 border border-dashed border-neutral-300 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 text-neutral-600">
+            <span class="sm:w-36 shrink-0 font-sans text-xs font-medium text-neutral-500 tabular-nums">20.30 WIB</span>
+            <div>
+              <h4 class="font-serif text-base font-semibold text-[#1c1d22]">Penutup</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Peserta pulang ke kediaman masing-masing.</p>
             </div>
           </div>
         </div>
@@ -452,44 +560,37 @@
           <p class="text-neutral-500 text-xs sm:text-sm mt-1.5 font-light">Rangkaian tanggal penting seleksi kepemimpinan nasional.</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           <div class="p-3.5 sm:p-4 bg-white border border-neutral-200 hover:border-[#002e72] transition-colors">
             <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">01</span>
-            <span class="block text-[10px] font-bold uppercase text-[#f4af40] mt-1.5 sm:mt-2">16–23 Sep</span>
-            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Pendaftaran</h4>
-            <p class="text-[11px] text-neutral-500 mt-1">Isi formulir, unggah esai &amp; video.</p>
+            <span class="block text-[10px] font-bold uppercase text-[#f4af40] mt-1.5 sm:mt-2">18–24 Sep</span>
+            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Registrasi</h4>
+            <p class="text-[11px] text-neutral-500 mt-1">Isi formulir &amp; unggah berkas seleksi.</p>
           </div>
 
           <div class="p-3.5 sm:p-4 bg-white border border-neutral-200 hover:border-[#002e72] transition-colors">
             <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">02</span>
             <span class="block text-[10px] font-bold uppercase text-[#002e72] mt-1.5 sm:mt-2">27–28 Sep</span>
-            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Seleksi Berkas</h4>
-            <p class="text-[11px] text-neutral-500 mt-1">Verifikasi orisinalitas naskah esai.</p>
+            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Screening</h4>
+            <p class="text-[11px] text-neutral-500 mt-1">Seleksi dan verifikasi berkas pendaftar.</p>
           </div>
 
           <div class="p-3.5 sm:p-4 bg-white border border-neutral-200 hover:border-[#002e72] transition-colors">
             <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">03</span>
-            <span class="block text-[10px] font-bold uppercase text-[#002e72] mt-1.5 sm:mt-2">27–28 Sep</span>
-            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Seleksi Video</h4>
-            <p class="text-[11px] text-neutral-500 mt-1">Penilaian artikulasi ide &amp; visi pemuda.</p>
-          </div>
-
-          <div class="p-3.5 sm:p-4 bg-white border border-neutral-200 hover:border-[#002e72] transition-colors">
-            <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">04</span>
             <span class="block text-[10px] font-bold uppercase text-[#f4af40] mt-1.5 sm:mt-2">29 Sep</span>
-            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Pengumuman</h4>
+            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Announcement</h4>
             <p class="text-[11px] text-neutral-500 mt-1">Notifikasi kelulusan peserta terpilih.</p>
           </div>
 
           <div class="p-3.5 sm:p-4 bg-white border border-neutral-200 hover:border-[#002e72] transition-colors">
-            <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">05</span>
+            <span class="font-sans text-xs font-bold text-[#002e72] tabular-nums tracking-wider">04</span>
             <span class="block text-[10px] font-bold uppercase text-[#002e72] mt-1.5 sm:mt-2">1 Okt</span>
-            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">TechBrief</h4>
+            <h4 class="font-serif text-xs sm:text-sm font-bold text-[#1c1d22] mt-0.5">Technical Briefing</h4>
             <p class="text-[11px] text-neutral-500 mt-1">Briefing teknis daring persiapan acara.</p>
           </div>
 
           <div class="p-3.5 sm:p-4 bg-[#002e72] text-white border border-[#002e72] shadow-sm">
-            <span class="font-sans text-xs font-bold text-[#f4af40] tabular-nums tracking-wider">06</span>
+            <span class="font-sans text-xs font-bold text-[#f4af40] tabular-nums tracking-wider">05</span>
             <span class="block text-[10px] font-bold uppercase text-[#f4af40] mt-1.5 sm:mt-2">3–4 Okt</span>
             <h4 class="font-serif text-xs sm:text-sm font-bold text-white mt-0.5">Pelaksanaan</h4>
             <p class="text-[11px] text-neutral-300 mt-1">Konferensi tatap muka di University Club.</p>
@@ -553,11 +654,11 @@
               <ul class="space-y-2.5 text-xs text-neutral-600 leading-relaxed">
                 <li class="flex items-start gap-2">
                   <iconify-icon icon="solar:check-circle-bold" class="text-sm text-[#002e72] mt-0.5 shrink-0"></iconify-icon>
-                  <span>Siswa SMA/SMK/MA sederajat atau Mahasiswa aktif seluruh Indonesia.</span>
+                  <span>Siswa SMA/SMK/MA sederajat seluruh Indonesia.</span>
                 </li>
                 <li class="flex items-start gap-2">
                   <iconify-icon icon="solar:check-circle-bold" class="text-sm text-[#002e72] mt-0.5 shrink-0"></iconify-icon>
-                  <span>Pengurus atau pimpinan organisasi (OSIS, MPK, Pramuka, PMR, BEM, Himpunan).</span>
+                  <span>Pengurus atau pimpinan organisasi siswa (OSIS, MPK, Pramuka, PMR, atau ekstrakurikuler lain).</span>
                 </li>
                 <li class="flex items-start gap-2">
                   <iconify-icon icon="solar:check-circle-bold" class="text-sm text-[#002e72] mt-0.5 shrink-0"></iconify-icon>
@@ -568,31 +669,26 @@
                   <span>Komitmen penuh dan kesiapan berpartisipasi aktif dalam kelompok kerja.</span>
                 </li>
               </ul>
+              <p class="text-xs text-neutral-500 mt-3.5 pt-3.5 border-t border-neutral-100 leading-relaxed">
+                Ketentuan lengkap seleksi dan berkas dapat dibaca pada <a href="https://drive.google.com/file/d/1n1c4l8pEKCKI3BTL8qEKU4aCLp5YOSlB/" target="_blank" rel="noopener" class="font-semibold text-[#002e72] underline underline-offset-2 hover:text-[#f4af40] transition-colors">NSLC 2026 Guidebook</a>.
+              </p>
             </div>
           </div>
 
           <!-- Right: Registration Form -->
           <div class="lg:col-span-7">
             <div class="border border-neutral-200 bg-white p-5 sm:p-8 lg:p-10 shadow-sm">
-              <div class="border-b border-neutral-200 pb-4 mb-5 sm:mb-6">
-                <span class="text-xs font-semibold uppercase tracking-widest text-[#002e72]">Pendaftaran Online</span>
-                <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-[#1c1d22] font-normal mt-0.5">Formulir Peserta NSLC 2026</h3>
-                <p class="text-xs text-neutral-500 mt-1">Lengkapi data diri dan tautan berkas seleksi Anda.</p>
+              <div class="border-b border-neutral-200 pb-4 mb-5 sm:mb-6 flex items-start justify-between gap-3 sm:gap-5">
+                <div class="min-w-0">
+                  <span class="text-xs font-semibold uppercase tracking-widest text-[#002e72]">Pendaftaran Online</span>
+                  <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-[#1c1d22] font-normal mt-0.5">Formulir Peserta NSLC 2026</h3>
+                  <p class="text-xs text-neutral-500 mt-1">Lengkapi data diri dan tautan berkas seleksi Anda.</p>
+                </div>
+                <img src="assets/nslc-2026-logo.png" alt="NSLC 2026 — National Student Leaders Conference" class="h-8 sm:h-11 w-auto shrink-0 object-contain" width="800" height="199" loading="lazy" decoding="async">
               </div>
 
               <!-- ponytail: native HTML5 required validation eliminates 40 lines of error-div toggle code -->
               <form id="reg-form" class="space-y-4 sm:space-y-5" onsubmit="handleFormSubmit(event)">
-                <div>
-                  <label for="edu-level" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                    Jenjang Pendidikan <span class="text-red-500">*</span>
-                  </label>
-                  <select id="edu-level" name="educationLevel" required="" class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-[#1c1d22] focus:border-[#002e72] outline-none min-h-[44px]">
-                    <option value="" disabled="" selected="">Pilih jenjang pendidikan</option>
-                    <option value="SMA / SMK / MA Sederajat">SMA / SMK / MA Sederajat</option>
-                    <option value="Perguruan Tinggi (Mahasiswa)">Perguruan Tinggi (Mahasiswa)</option>
-                  </select>
-                </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
@@ -602,7 +698,7 @@
                   </div>
                   <div>
                     <label for="inst" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                      Asal Sekolah / Kampus <span class="text-red-500">*</span>
+                      Asal Sekolah <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="inst" name="institution" required="" placeholder="Contoh: SMAN 8 Jakarta" class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
                   </div>
@@ -640,7 +736,7 @@
 
                 <div>
                   <label for="lens" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                    Lensa Fokus Peminatan Esai <span class="text-red-500">*</span>
+                    Lensa Fokus Peminatan <span class="text-red-500">*</span>
                   </label>
                   <select id="lens" name="focusLens" required="" class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-[#1c1d22] focus:border-[#002e72] outline-none min-h-[44px]">
                     <option value="" disabled="" selected="">Pilih salah satu dari 5 lensa IFLH</option>
@@ -654,18 +750,21 @@
 
                 <div>
                   <label for="essay" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                    Tautan Google Drive Esai <span class="text-red-500">*</span>
+                    Tautan Google Drive Berkas Seleksi <span class="text-red-500">*</span>
                   </label>
-                  <input type="url" id="essay" name="essayLink" required="" placeholder="https://drive.google.com/..." class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
-                  <span class="block text-[11px] text-neutral-500 mt-1">Pastikan hak akses tautan diset ke "Anyone with the link can view".</span>
+                  <input type="url" id="essay" name="essayLink" required="" placeholder="https://drive.google.com/drive/folders/..." class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
+                  <span class="block text-[11px] text-neutral-500 mt-1.5 leading-relaxed">
+                    Satu tautan folder Google Drive berisi tiga berkas: (1) esai <em>motivation letter</em>, (2) CV, dan (3) tangkapan layar <em>twibbon</em> yang sudah diunggah di Instagram. Isi esai 450–800 kata, Times New Roman 12pt, spasi 1,5, format PDF dengan nama file “Nama Lengkap - Asal Sekolah”. Pastikan hak akses tautan diset ke “Anyone with the link can view”.
+                  </span>
                 </div>
 
-                <div>
-                  <label for="video" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                    Tautan Video Perkenalan (YouTube) <span class="text-red-500">*</span>
-                  </label>
-                  <input type="url" id="video" name="videoLink" required="" placeholder="https://youtube.com/watch?v=..." class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
-                  <span class="block text-[11px] text-neutral-500 mt-1">Durasi maksimal 2 menit (format unlisted atau public).</span>
+                <div class="p-4 border border-neutral-200 bg-neutral-50">
+                  <span class="block text-[11px] font-semibold uppercase tracking-wider text-[#1c1d22] mb-1">Template Twibbon Resmi NSLC 2026</span>
+                  <p class="text-[11px] text-neutral-600 leading-relaxed">
+                    Unduh twibbon melalui
+                    <a href="https://bit.ly/nslc2026-berkas" target="_blank" rel="noopener noreferrer" class="font-semibold text-[#002e72] underline underline-offset-2 hover:text-[#f4af40] transition-colors py-0.5 inline-block">bit.ly/nslc2026-berkas</a>,
+                    unggah di akun Instagram masing-masing, lalu lampirkan tangkapan layarnya pada tautan Google Drive di atas.
+                  </p>
                 </div>
 
                 <div class="pt-2">
@@ -681,6 +780,131 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION (native <details> disclosure, no JS) -->
+    <section id="faq" class="py-16 sm:py-20 lg:py-24 bg-neutral-50 border-t border-neutral-200" data-od-id="faq-section">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto mb-8 sm:mb-10">
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#002e72]">Pertanyaan Umum</span>
+          <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-[#1c1d22] font-normal mt-1">FAQ NSLC 2026</h2>
+          <p class="text-neutral-500 text-xs sm:text-sm mt-1">Rangkuman pertanyaan yang paling sering diajukan calon peserta.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Siapa yang boleh mendaftar sebagai peserta?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                NSLC 2026 terbuka bagi siswa-siswi SMA/sederajat se-Indonesia — tidak terbatas Jabodetabek — yang memimpin atau aktif berkontribusi dalam organisasi pelajar (OSIS, Pramuka, MPK, Paskibra, PMR, dan sejenisnya) di sekolahnya, serta memiliki rasa ingin tahu intelektual dan jiwa sosial yang tinggi.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Apakah ada biaya pendaftaran?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Tidak ada. Peserta NSLC 2026 tidak dipungut biaya apa pun. Namun peserta bertanggung jawab mengatur transportasi dari <em>venue</em> ke tempat tinggal masing-masing.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Berkas apa saja yang harus saya kumpulkan?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Tiga berkas: (1) esai <em>motivation letter</em>, (2) CV, dan (3) tangkapan layar <em>twibbon</em> yang sudah diunggah di Instagram. Ketiganya dikumpulkan dalam satu tautan Google Drive, lalu tautannya diisikan pada formulir pendaftaran.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Bagaimana ketentuan penulisan esai?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Panjang esai minimal 450 kata dan maksimal 800 kata, ditulis sesuai kaidah KBBI, menggunakan font Times New Roman 12pt dengan spasi 1,5, dan disimpan dalam format PDF. Beri nama file dengan format “(Nama Lengkap) - (Asal Sekolah)”. Esai memuat motivasi Anda mengikuti kegiatan ini dan bentuk kontribusi nyata yang akan dibawa setelah mengikuti kegiatan.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Di mana saya bisa mengunduh template twibbon?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Template twibbon resmi NSLC 2026 dapat diunduh melalui
+                <a href="https://bit.ly/nslc2026-berkas" target="_blank" rel="noopener noreferrer" class="font-semibold text-[#002e72] underline underline-offset-2 hover:text-[#f4af40] transition-colors">bit.ly/nslc2026-berkas</a>.
+                Unggah twibbon tersebut di akun Instagram Anda, lalu kumpulkan tangkapan layarnya bersama berkas lain.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Bagaimana format penyelenggaraannya? Apakah peserta menginap?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Kegiatan berlangsung offline dan pulang-hari (tidak menginap) pada Sabtu–Minggu, 3–4 Oktober 2026, pukul 08.00–20.30 WIB, di University Club Jakarta, Jl. Brawijaya VIII No. 8, Kebayoran Baru, Jakarta Selatan.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Kapan jadwal seleksi dan pengumumannya?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Registrasi 18–24 September 2026, screening 27–28 September 2026, announcement 29 September 2026, technical briefing 1 Oktober 2026, dan pelaksanaan 3–4 Oktober 2026.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Apakah peserta terpilih wajib mengikuti seluruh rangkaian acara?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Ya. Apabila pendaftar dinyatakan lolos seleksi, peserta diwajibkan mengikuti seluruh rangkaian acara pada 3–4 Oktober 2026 di University Club Jakarta.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-neutral-200 open:border-[#002e72] transition-colors">
+            <summary class="flex items-center justify-between gap-4 cursor-pointer p-4 sm:p-5 min-h-[44px]">
+              <span class="font-serif text-sm sm:text-base font-semibold text-[#1c1d22]">Bagaimana jika saya masih punya pertanyaan lain?</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="text-lg text-[#002e72] shrink-0 transition-transform duration-200 group-open:rotate-180"></iconify-icon>
+            </summary>
+            <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+              <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed font-light">
+                Silakan hubungi sekretariat melalui email
+                <a href="mailto:nslc@iflhub.web.id" class="font-semibold text-[#002e72] underline underline-offset-2 hover:text-[#f4af40] transition-colors">nslc@iflhub.web.id</a>
+                atau grup WhatsApp resmi NSLC 2026 yang tautannya dibagikan setelah Anda mengirim formulir pendaftaran.
+              </p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -717,19 +941,19 @@
     <span class="text-xs font-semibold uppercase tracking-widest text-emerald-700 block">Pendaftaran Berhasil</span>
     <h3 class="font-serif text-2xl font-bold text-[#1c1d22] mt-1">Aplikasi Anda Telah Diterima</h3>
     <p class="text-xs text-neutral-600 mt-3 leading-relaxed">
-      Terima kasih telah mendaftar untuk <strong>NSLC 2026</strong>. Berkas esai dan tautan video Anda akan diproses oleh tim seleksi IFLH.
+      Terima kasih telah mendaftar untuk <strong>NSLC 2026</strong>. Berkas esai <em>motivation letter</em>, CV, dan twibbon Anda akan diproses oleh tim seleksi IFLH.
     </p>
 
     <div class="my-5 p-3 bg-neutral-50 border border-neutral-200 text-left text-xs text-neutral-600 space-y-1">
       <p class="font-semibold text-neutral-800">Langkah Berikutnya:</p>
       <p>1. Simpan bukti pendaftaran ini.</p>
-      <p>2. Bergabung ke WhatsApp Channel resmi untuk pembaruan pengumuman.</p>
+      <p>2. Bergabung ke grup WhatsApp resmi untuk pembaruan pengumuman.</p>
     </div>
 
     <div class="space-y-2">
-      <a href="https://whatsapp.com/channel/example-iflh" target="_blank" rel="noopener noreferrer" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2">
+      <a href="https://chat.whatsapp.com/CSMeIxRCVSMFGFAmKEgyry?mode=gi_t" target="_blank" rel="noopener noreferrer" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3 px-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2">
         <iconify-icon icon="solar:phone-calling-bold" class="text-base"></iconify-icon>
-        <span>Gabung WhatsApp Channel</span>
+        <span>Gabung Grup WhatsApp</span>
       </a>
       <button type="button" onclick="document.getElementById('success-dialog').close()" class="w-full border border-neutral-300 hover:bg-neutral-100 text-neutral-700 py-2.5 text-xs uppercase tracking-wider font-semibold transition-colors">
         Tutup
@@ -793,7 +1017,7 @@
           </div>
 
           <p class="text-neutral-400 text-xs pt-0.5">
-            Email: <a href="mailto:nslc@iflh.org" class="text-neutral-200 hover:text-[#f4af40] py-2 min-h-[44px] inline-flex items-center transition-colors">nslc@iflh.org</a>
+            Email: <a href="mailto:nslc@iflhub.web.id" class="text-neutral-200 hover:text-[#f4af40] py-2 min-h-[44px] inline-flex items-center transition-colors">nslc@iflhub.web.id</a>
           </p>
         </div>
       </div>

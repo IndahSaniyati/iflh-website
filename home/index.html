@@ -17,6 +17,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <!-- Runtime CDNs: Tailwind JIT compiles the stylesheet in-browser; Iconify fetches icon data from api.iconify.design -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://code.iconify.design">
+  <link rel="preconnect" href="https://api.iconify.design">
   <link rel="preload" as="image" href="assets/landing-page-background-1.jpg" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
 
@@ -46,7 +50,7 @@
   </script>
 
   <!-- Iconify (Solar Icons library) -->
-  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script defer src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
   <style>
     /* Global Luxury Constraints & Reset */
@@ -164,15 +168,17 @@
 
         <!-- Subtitle -->
         <p class="mt-4 sm:mt-6 text-xs sm:text-base md:text-lg text-neutral-200/90 font-normal max-w-2xl mx-auto leading-relaxed">
-          Mempersiapkan siswa SMA hingga mahasiswa dengan pemahaman holistik tentang dunia dan Indonesia — memimpin dengan kejernihan, empati, dan dampak nyata.
+          Mempersiapkan siswa SMA/SMK/MA sederajat dengan pemahaman holistik tentang dunia dan Indonesia — memimpin dengan kejernihan, empati, dan dampak nyata.
         </p>
 
-        <!-- CTA Button -->
-        <div class="mt-6 sm:mt-9 flex items-center justify-center">
+        <!-- CTA Buttons -->
+        <div class="mt-6 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <a href="#program" data-od-id="hero-nslc-cta" class="w-full sm:w-auto min-h-[44px] rounded-none bg-[#f4af40] text-[#1c1d22] hover:bg-white hover:text-[#002e72] px-6 sm:px-9 py-3.5 sm:py-4 text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] transition-all duration-300 shadow-xl flex items-center justify-center gap-2 sm:gap-3">
             <span>National Student Leaders Conference 2026</span>
             <iconify-icon icon="solar:arrow-right-down-linear" class="text-sm sm:text-base"></iconify-icon>
           </a>
+          <!-- Teaser only: deliberately not a link, so it cannot be activated by pointer or keyboard -->
+          <span aria-disabled="true" data-od-id="hero-nusl-teaser" class="w-full sm:w-auto min-h-[44px] rounded-none border border-white/25 bg-transparent text-white/60 px-6 sm:px-7 py-3.5 sm:py-4 text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em] select-none cursor-not-allowed flex items-center justify-center">NUSL 2026 (Coming soon)</span>
         </div>
       </div>
 
@@ -303,26 +309,21 @@
         <div class="rounded-none border border-neutral-200 bg-[#1c1d22] text-white overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 reveal">
           <!-- Left Visual Side -->
           <div class="lg:col-span-5 relative min-h-[260px] sm:min-h-[340px] lg:min-h-full">
-            <img src="assets/featured-program-nslc2026.jpg" alt="National Student Leaders Conference Ambience" class="absolute inset-0 w-full h-full object-cover" width="1122" height="1402" loading="lazy" decoding="async">
+            <img src="assets/featured-program-nslc2026.jpg" alt="National Student Leaders Conference Ambience" class="absolute inset-0 w-full h-full object-cover" width="900" height="1125" loading="lazy" decoding="async">
             <div class="absolute inset-0 bg-gradient-to-t from-[#1c1d22] via-[#002e72]/25 to-transparent"></div>
-            <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
-              
-            </div>
           </div>
 
           <!-- Right Content Side -->
           <div class="lg:col-span-7 p-6 sm:p-10 lg:p-14 flex flex-col justify-between">
             <div>
-              <div class="text-xs tracking-[0.2em] text-[#f4af40] uppercase font-semibold mb-2 sm:mb-3">
-                <span>National Leadership Conference</span>
-              </div>
+              <img src="assets/nslc-2026-logo-white.png" alt="NSLC 2026 — National Student Leaders Conference" class="h-10 sm:h-12 w-auto object-contain mb-5 sm:mb-6" width="800" height="199" loading="lazy" decoding="async">
 
               <h3 class="font-serif text-2xl sm:text-3xl md:text-4xl text-white font-normal leading-snug">
                 Understanding the World, Finding Your Place in It
               </h3>
 
               <p class="mt-4 sm:mt-5 text-neutral-300 font-light text-sm sm:text-base leading-relaxed">
-                Konferensi intensif dua hari bagi pimpinan organisasi pelajar se-Indonesia (OSIS, MPK, Pramuka, PMR, dan mahasiswa). Bertukar wawasan bersama tokoh nasional, praktisi industri, dan pembuat kebijakan di University Club Jakarta.
+                Konferensi intensif dua hari bagi pimpinan organisasi pelajar se-Indonesia (OSIS, MPK, Pramuka, dan PMR). Bertukar wawasan bersama tokoh nasional, praktisi industri, dan pembuat kebijakan di University Club Jakarta.
               </p>
 
               <!-- Highlights Grid -->
@@ -344,7 +345,7 @@
                 <div>
                   <span class="block text-[10px] uppercase tracking-[0.2em] text-[#f4af40]">Kriteria Peserta</span>
                   <span class="block font-serif text-base sm:text-lg font-semibold text-white mt-1">Pimpinan Pelajar</span>
-                  <span class="block text-xs text-neutral-400">SMA/SMK &amp; Mahasiswa</span>
+                  <span class="block text-xs text-neutral-400">SMA/SMK/MA Sederajat</span>
                 </div>
               </div>
             </div>
@@ -443,7 +444,7 @@
           </div>
 
           <p class="text-xs text-neutral-400 pt-0.5">
-            Email: <a href="mailto:info@iflh.org" class="text-neutral-200 hover:text-[#f4af40] py-1 inline-block">info@iflh.org</a>
+            Email: <a href="mailto:nslc@iflhub.web.id" class="text-neutral-200 hover:text-[#f4af40] py-1 inline-block">nslc@iflhub.web.id</a>
           </p>
         </div>
       </div>
