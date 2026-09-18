@@ -752,7 +752,7 @@
                   <label for="essay" class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
                     Tautan Google Drive Berkas Seleksi <span class="text-red-500">*</span>
                   </label>
-                  <input type="url" id="essay" name="essayLink" required="" pattern="^https:\/\/(drive\.google\.com|docs\.google\.com)\/.*" title="Tautan wajib berupa link Google Drive resmi (contoh: https://drive.google.com/...)" placeholder="https://drive.google.com/drive/folders/..." class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
+                  <input type="text" id="essay" name="essayLink" required="" placeholder="https://drive.google.com/... atau drive.google.com/..." class="w-full border border-neutral-300 bg-neutral-50 px-3.5 py-3 sm:py-2.5 text-base sm:text-sm focus:border-[#002e72] outline-none min-h-[44px]">
                   <span class="block text-[11px] text-neutral-500 mt-1.5 leading-relaxed">
                     Satu tautan folder Google Drive berisi tiga berkas: (1) esai <em>motivation letter</em>, (2) CV, dan (3) tangkapan layar <em>twibbon</em> yang sudah diunggah di Instagram. Isi esai 450–800 kata, Times New Roman 12pt, spasi 1,5, format PDF dengan nama file “Nama Lengkap - Asal Sekolah”. Pastikan hak akses tautan diset ke “Anyone with the link can view”.
                   </span>
@@ -1063,13 +1063,18 @@
       e.preventDefault();
       const form = e.target;
       const essayInput = document.getElementById('essay');
-      const essayVal = (essayInput.value || '').trim();
+      let essayVal = (essayInput.value || '').trim();
 
-      // Validasi ketat: Hanya link Google Drive resmi yang diizinkan
-      if (!/^https:\/\/(drive\.google\.com|docs\.google\.com)\/.+/i.test(essayVal)) {
-        alert('Tautan berkas pendaftaran wajib berupa link Google Drive resmi (contoh: https://drive.google.com/drive/folders/...).');
+      // Fleksibel: Cukup pastikan link berasal dari Google Drive (drive.google.com / docs.google.com)
+      if (!/drive\.google\.com|docs\.google\.com/i.test(essayVal)) {
+        alert('Tautan berkas wajib berasal dari Google Drive (mengandung drive.google.com).');
         essayInput.focus();
         return;
+      }
+
+      // Pastikan ada awalan https:// agar link bisa diklik di Sheets & email
+      if (!/^https?:\/\//i.test(essayVal)) {
+        essayVal = 'https://' + essayVal;
       }
 
       const btn = form.querySelector('button[type="submit"]');
@@ -1079,6 +1084,7 @@
       btn.innerHTML = '<span>Mengirim Data...</span>';
 
       const payload = Object.fromEntries(new FormData(form).entries());
+      payload.essayLink = essayVal;
 
       try {
         await fetch('https://script.google.com/macros/s/AKfycbxvi5k9wsnZTIrMLGAOKGdU3kn3r61ERIvvsX0cDqi9yLh2TTEfDnRepQEu1gNybmzYTA/exec', {
