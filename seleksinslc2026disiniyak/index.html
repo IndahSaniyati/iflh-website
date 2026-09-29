@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Portal Seleksi & Kurasi NSLC 2026 | IFLH Internal</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/icon_logo_web.png">
+
+  <!-- Tailwind CSS & Iconify -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .candidate-card.active { border-left-color: #002e72; background-color: #f0f7ff; }
+    .doc-tab.active { background-color: #ffffff; color: #002e72; border-bottom: 2px solid #002e72; font-weight: bold; }
+  </style>
+</head>
+<body class="bg-neutral-100 text-[#1c1d22] h-screen overflow-hidden flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-[#002e72] text-white px-5 py-3 flex items-center justify-between border-b border-[#002152] shrink-0">
+    <div class="flex items-center gap-3">
+      <div class="bg-[#f4af40] text-[#1c1d22] px-2.5 py-0.5 text-[10px] uppercase tracking-widest font-bold">
+        INTERNAL
+      </div>
+      <div>
+        <h1 class="font-serif text-sm sm:text-base font-bold tracking-tight">Portal Kurasi &amp; Seleksi NSLC 2026</h1>
+        <p class="text-[11px] text-neutral-300">Indonesia Future Leaders Hub · Sesi Kurasi Final (Kuota 35 Delegasi)</p>
+      </div>
+    </div>
+
+    <!-- STATS CHIPS & ACTION BUTTONS -->
+    <div class="flex items-center gap-3">
+      <div class="hidden md:flex items-center gap-2.5 bg-black/25 px-3 py-1.5 text-xs">
+        <span class="text-neutral-300">Total: <strong class="text-white" id="stat-total">51</strong></span>
+        <span class="text-neutral-500">|</span>
+        <span class="text-emerald-400">Lolos: <strong id="stat-lolos">0</strong> <span class="text-neutral-400 text-[10px]">/ 35 Kuota</span></span>
+        <span class="text-neutral-500">|</span>
+        <span class="text-neutral-300">Pending: <strong id="stat-pending">51</strong></span>
+        <span class="text-neutral-500">|</span>
+        <span class="text-red-400">Tolak: <strong id="stat-tolak">0</strong></span>
+      </div>
+
+      <button onclick="openFinalizeModal()" class="bg-[#f4af40] hover:bg-white text-[#1c1d22] hover:text-[#002e72] px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-sm">
+        <iconify-icon icon="solar:letter-bold" class="text-sm"></iconify-icon>
+        <span>Finalisasi &amp; Kirim Pengumuman</span>
+      </button>
+
+      <button onclick="lockScreen()" title="Kunci Portal" class="text-neutral-300 hover:text-white p-2">
+        <iconify-icon icon="solar:lock-bold" class="text-lg"></iconify-icon>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN 2-COLUMN WORKSPACE -->
+  <main class="flex-1 flex overflow-hidden">
+
+    <!-- LEFT PANEL: CANDIDATES LIST WITH AUTO-SORT & MULTI-FILTER -->
+    <section class="w-80 lg:w-[380px] bg-white border-r border-neutral-200 flex flex-col shrink-0">
+      
+      <!-- Search & Filters Bar -->
+      <div class="p-3.5 border-b border-neutral-200 bg-neutral-50 space-y-2.5">
+        <div class="relative">
+          <iconify-icon icon="solar:magnifer-linear" class="absolute left-3 top-2.5 text-neutral-400"></iconify-icon>
+          <input type="text" id="search-input" oninput="renderCandidateList()" placeholder="Cari nama, sekolah, kota..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-neutral-300 focus:border-[#002e72] outline-none">
+        </div>
+
+        <div class="grid grid-cols-3 gap-1.5 text-[11px]">
+          <select id="filter-lens" onchange="renderCandidateList()" class="py-1 px-1.5 border border-neutral-300 bg-white outline-none text-neutral-700 truncate">
+            <option value="">Semua Lensa</option>
+            <option value="Research">Research &amp; Learning</option>
+            <option value="Business">Business &amp; Economy</option>
+            <option value="Policy">Public Policy</option>
+            <option value="Arts">Arts &amp; Society</option>
+            <option value="Science">Science &amp; AI</option>
+          </select>
+
+          <select id="filter-prov" onchange="renderCandidateList()" class="py-1 px-1.5 border border-neutral-300 bg-white outline-none text-neutral-700 truncate">
+            <option value="">Semua Wilayah</option>
+            <option value="DKI Jakarta">DKI Jakarta</option>
+            <option value="Jawa Barat">Jawa Barat</option>
+            <option value="Banten">Banten</option>
+            <option value="Jawa Tengah">Jawa Tengah</option>
+            <option value="Nusa Tenggara Barat">NTB</option>
+            <option value="Kalimantan Timur">Kaltim</option>
+          </select>
+
+          <select id="filter-status" onchange="renderCandidateList()" class="py-1 px-1.5 border border-neutral-300 bg-white outline-none text-neutral-700 truncate">
+            <option value="">Semua Status</option>
+            <option value="Lolos">Lolos</option>
+            <option value="Pending">Pending</option>
+            <option value="Tolak">Tolak</option>
+          </select>
+        </div>
+
+        <div class="flex items-center justify-between text-[10px] text-neutral-500 pt-1 border-t border-neutral-200">
+          <span class="flex items-center gap-1">
+            <iconify-icon icon="solar:sort-vertical-linear" class="text-xs text-[#002e72]"></iconify-icon>
+            <span>Auto-Sort: Lolos &rarr; Pending &rarr; Tolak</span>
+          </span>
+          <span id="filtered-count" class="font-bold text-[#002e72]">0</span>
+        </div>
+      </div>
+
+      <!-- Scrollable List of Candidates -->
+      <div id="candidates-container" class="flex-1 overflow-y-auto divide-y divide-neutral-100">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: FULL PREVIEW & SCORING -->
+    <section class="flex-1 flex flex-col lg:flex-row overflow-hidden bg-neutral-100">
+
+      <!-- IN-PAGE DIRECT VIEWER WITH QUICK TABS (ESAI, CV, TWIBBON, FOLDER) -->
+      <div class="flex-1 flex flex-col bg-white border-r border-neutral-200 overflow-hidden">
+        
+        <!-- Document Tabs Navigation -->
+        <div class="bg-neutral-100 border-b border-neutral-200 flex items-center justify-between px-3 text-xs shrink-0">
+          <div class="flex items-center">
+            <button onclick="switchDocTab('folder')" id="tab-folder" class="doc-tab active py-2.5 px-3.5 text-xs text-neutral-600 hover:text-[#002e72] transition-colors flex items-center gap-1.5">
+              <iconify-icon icon="solar:folder-with-files-bold" class="text-base text-[#002e72]"></iconify-icon>
+              <span>📁 Folder Berkas Lengkap</span>
+            </button>
+            <button onclick="switchDocTab('essay')" id="tab-essay" class="doc-tab py-2.5 px-3.5 text-xs text-neutral-600 hover:text-[#002e72] transition-colors flex items-center gap-1.5">
+              <iconify-icon icon="solar:document-text-bold" class="text-base text-red-600"></iconify-icon>
+              <span>📑 Esai Motivation Letter</span>
+            </button>
+            <button onclick="switchDocTab('cv')" id="tab-cv" class="doc-tab py-2.5 px-3.5 text-xs text-neutral-600 hover:text-[#002e72] transition-colors flex items-center gap-1.5">
+              <iconify-icon icon="solar:user-id-bold" class="text-base text-blue-600"></iconify-icon>
+              <span>📄 CV Peserta</span>
+            </button>
+            <button onclick="switchDocTab('twibbon')" id="tab-twibbon" class="doc-tab py-2.5 px-3.5 text-xs text-neutral-600 hover:text-[#002e72] transition-colors flex items-center gap-1.5">
+              <iconify-icon icon="solar:gallery-bold" class="text-base text-amber-500"></iconify-icon>
+              <span>🖼️ Twibbon IG</span>
+            </button>
+          </div>
+
+          <a id="external-drive-link" href="#" target="_blank" rel="noopener noreferrer" class="text-[11px] text-[#002e72] hover:text-[#f4af40] flex items-center gap-1 font-semibold transition-colors py-1">
+            <span>Buka di Tab Baru</span>
+            <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon>
+          </a>
+        </div>
+
+        <!-- FULL-PAGE IFRAME VIEWER (NO NEW TAB REQUIRED!) -->
+        <div class="flex-1 bg-neutral-200 relative overflow-hidden flex flex-col">
+          <iframe id="drive-iframe" src="about:blank" class="w-full h-full border-0 bg-white" title="Dokumen Preview Langsung"></iframe>
+          <div id="drive-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-neutral-50 p-6 text-center hidden">
+            <div class="w-14 h-14 bg-[#002e72]/5 border border-[#002e72]/15 text-[#002e72] flex items-center justify-center mb-3">
+              <iconify-icon icon="solar:folder-open-bold" class="text-3xl"></iconify-icon>
+            </div>
+            <h4 class="font-serif text-sm font-bold text-[#1c1d22]">Pratinjau Folder Berkas Calon Peserta</h4>
+            <p class="text-xs text-neutral-500 max-w-sm mt-1 mb-3">
+              Folder Google Drive berisi berkas esai motivation letter, CV, dan bukti twibbon dimuat langsung di dalam frame ini.
+            </p>
+            <a id="placeholder-drive-btn" href="#" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 bg-[#002e72] text-white text-xs font-semibold">
+              <span>Buka Folder Google Drive</span>
+              <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVALUATION & CURATOR NOTES PANEL -->
+      <div class="w-full lg:w-[380px] bg-white flex flex-col overflow-y-auto shrink-0 border-l border-neutral-200">
+        <!-- Candidate Profile Box -->
+        <div class="p-5 border-b border-neutral-200 bg-neutral-50/70">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-[#002e72] block">Profil Kandidat Terpilih</span>
+          <h3 id="detail-name" class="font-serif text-base font-bold text-[#1c1d22] mt-0.5">-</h3>
+          <p id="detail-school" class="text-xs text-neutral-600 font-medium">-</p>
+          <p id="detail-city" class="text-[11px] text-neutral-500 mt-0.5">-</p>
+
+          <div class="mt-3.5 space-y-2 text-[11px] bg-white p-3 border border-neutral-200">
+            <div class="flex justify-between">
+              <span class="text-neutral-400">Jabatan:</span>
+              <span id="detail-role" class="font-semibold text-neutral-800">-</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-neutral-400">WhatsApp:</span>
+              <a id="detail-wa" href="#" target="_blank" class="font-semibold text-emerald-700 hover:underline flex items-center gap-1">
+                <iconify-icon icon="solar:phone-bold"></iconify-icon>
+                <span>-</span>
+              </a>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-neutral-400">Email:</span>
+              <span id="detail-email" class="font-medium text-neutral-700">-</span>
+            </div>
+            <div class="pt-1.5 border-t border-neutral-100">
+              <span class="text-neutral-400 block text-[10px] mb-0.5">Lensa Peminatan:</span>
+              <span id="detail-lens" class="font-semibold text-[#002e72] block leading-tight">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCORING FORM (HANYA LOLOS & TOLAK) -->
+        <div class="p-5 space-y-4 flex-1">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5 flex justify-between">
+              <span>Nilai Esai &amp; Profil</span>
+              <span class="text-[11px] font-normal text-neutral-500">(Skala 0 - 100)</span>
+            </label>
+            <input type="number" id="input-score" min="0" max="100" class="w-full p-2.5 border border-neutral-300 font-bold text-xl text-[#002e72] focus:border-[#002e72] outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
+              Keputusan Seleksi Final
+            </label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button type="button" onclick="setCandidateStatus('Lolos')" id="btn-status-lolos" class="p-2.5 text-center text-xs font-bold border border-neutral-300 hover:border-emerald-600 transition-colors">
+                ✓ Lolos (Delegasi)
+              </button>
+              <button type="button" onclick="setCandidateStatus('Tolak')" id="btn-status-tolak" class="p-2.5 text-center text-xs font-bold border border-neutral-300 hover:border-red-500 transition-colors">
+                ✕ Tolak (Apresiasi)
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
+              Catatan Evaluasi Kurator
+            </label>
+            <textarea id="input-notes" rows="4" placeholder="Tuliskan catatan esai, visi kepemimpinan, atau pertimbangan kurasi..." class="w-full p-2.5 text-xs border border-neutral-300 focus:border-[#002e72] outline-none leading-relaxed"></textarea>
+          </div>
+
+          <div class="pt-2">
+            <button onclick="saveCurrentCandidate()" class="w-full bg-[#002e72] hover:bg-[#f4af40] text-white hover:text-[#1c1d22] py-3 text-xs font-bold uppercase tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2">
+              <iconify-icon icon="solar:diskette-bold" class="text-base"></iconify-icon>
+              <span>Simpan &amp; Lanjut Kandidat Berikutnya</span>
+            </button>
+            <p id="save-alert" class="text-[11px] text-emerald-700 text-center mt-2 hidden font-semibold">
+              ✓ Penilaian tersimpan &amp; daftar ter-sortir otomatis!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: FINALISASI & BLAST EMAIL PENGUMUMAN DENGAN 3 TARGET PILIHAN -->
+  <dialog id="finalize-modal" class="p-0 max-w-xl w-[92%] bg-white border border-neutral-200 shadow-2xl backdrop:bg-black/60">
+    <div class="p-5 bg-[#002e72] text-white flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <iconify-icon icon="solar:letter-bold" class="text-xl text-[#f4af40]"></iconify-icon>
+        <h3 class="font-serif text-base font-bold">Finalisasi &amp; Blast Email Pengumuman</h3>
+      </div>
+      <button onclick="document.getElementById('finalize-modal').close()" class="text-neutral-300 hover:text-white">
+        <iconify-icon icon="solar:close-circle-bold" class="text-xl"></iconify-icon>
+      </button>
+    </div>
+
+    <div class="p-6 space-y-5">
+      <!-- Recap Cards -->
+      <div class="grid grid-cols-2 gap-3 text-center">
+        <div class="p-3.5 bg-emerald-50 border border-emerald-200">
+          <span class="text-[10px] font-bold text-emerald-800 uppercase block">Peserta Lolos</span>
+          <strong id="modal-count-lolos" class="text-3xl text-emerald-700 font-serif">0</strong>
+          <span class="text-[10px] text-emerald-600 block mt-0.5">Mendapat Undangan Resmi (Slot: 35)</span>
+        </div>
+        <div class="p-3.5 bg-neutral-50 border border-neutral-200">
+          <span class="text-[10px] font-bold text-neutral-600 uppercase block">Belum Lolos</span>
+          <strong id="modal-count-tolak" class="text-3xl text-neutral-700 font-serif">0</strong>
+          <span class="text-[10px] text-neutral-500 block mt-0.5">Mendapat Email Apresiasi Halus</span>
+        </div>
+      </div>
+
+      <!-- 3 Target Choices -->
+      <div class="space-y-2 text-xs">
+        <label class="font-bold text-neutral-800 block text-sm">Pilih Target Pengiriman Email Pengumuman:</label>
+        
+        <div class="space-y-2">
+          <!-- Opsi 1: Hanya Peserta Lolos Saja -->
+          <label class="flex items-start gap-2.5 p-3 border border-neutral-200 hover:border-[#002e72] bg-white cursor-pointer transition-all">
+            <input type="radio" name="blast_scope" value="lolos_only" checked onchange="updateModalPreview()" class="mt-0.5 text-[#002e72]">
+            <div>
+              <span class="font-bold text-[#002e72] block">1. Hanya Peserta Lolos Saja</span>
+              <span class="text-neutral-500 text-[11px]">Hanya mengirimkan email undangan resmi delegasi, link grup WhatsApp intensif, dan jadwal briefing kepada kandidat <strong>Lolos</strong>.</span>
+            </div>
+          </label>
+
+          <!-- Opsi 2: Hanya Peserta Belum Lolos (Apresiasi) -->
+          <label class="flex items-start gap-2.5 p-3 border border-neutral-200 hover:border-[#002e72] bg-white cursor-pointer transition-all">
+            <input type="radio" name="blast_scope" value="tolak_only" onchange="updateModalPreview()" class="mt-0.5 text-[#002e72]">
+            <div>
+              <span class="font-bold text-[#002e72] block">2. Hanya Peserta Belum Lolos (Email Apresiasi)</span>
+              <span class="text-neutral-500 text-[11px]">Mengirimkan email apresiasi yang hangat, halus, dan sangat profesional untuk mengapresiasi minat serta esai peserta yang belum lolos.</span>
+            </div>
+          </label>
+
+          <!-- Opsi 3: Kirim ke Semua 51 Peserta -->
+          <label class="flex items-start gap-2.5 p-3 border border-neutral-200 hover:border-[#002e72] bg-white cursor-pointer transition-all">
+            <input type="radio" name="blast_scope" value="all_51" onchange="updateModalPreview()" class="mt-0.5 text-[#002e72]">
+            <div>
+              <span class="font-bold text-[#002e72] block">3. Kirim ke Semua 51 Peserta (Lengkap)</span>
+              <span class="text-neutral-500 text-[11px]">Kirim serentak: Email Lolos untuk peserta yang diterima, dan Email Apresiasi Halus untuk peserta yang belum lolos seleksi.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Preview Box -->
+      <div class="p-4 bg-neutral-50 border border-neutral-200 text-xs text-neutral-700 space-y-2 leading-relaxed">
+        <p class="font-bold text-[#002e72] flex items-center gap-1.5">
+          <iconify-icon icon="solar:eye-bold"></iconify-icon>
+          <span id="preview-target-title">Preview Subjek Email Peserta Lolos:</span>
+        </p>
+        <div id="preview-subject-text" class="bg-white p-2.5 border border-neutral-300 font-mono text-[11px] text-neutral-800 leading-snug">
+          [PENGUMUMAN SELEKSI NSLC 2026] Selamat, Anda Terpilih Menjadi Delegasi Resmi
+        </div>
+        <p id="preview-body-desc" class="text-[11px] text-neutral-500">
+          Email terkirim otomatis dari alamat resmi <strong>nslc@iflhub.web.id</strong> langsung ke alamat masing-masing peserta.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-between pt-3 border-t border-neutral-200">
+        <span class="text-xs text-neutral-500">Target penerima: <strong id="modal-recipients-count" class="text-[#002e72]">0 email</strong></span>
+        <div class="flex items-center gap-2">
+          <button onclick="document.getElementById('finalize-modal').close()" class="px-4 py-2 text-xs text-neutral-600 hover:bg-neutral-100 font-semibold uppercase tracking-wider">
+            Batal
+          </button>
+          <button onclick="triggerBlastEmail()" id="btn-blast-exec" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm flex items-center gap-2">
+            <iconify-icon icon="solar:plain-bold" class="text-base"></iconify-icon>
+            <span>Kirim Pengumuman Sekarang</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- LOCK SCREEN MODAL (PIN 123456) -->
+  <div id="lock-modal" class="fixed inset-0 bg-[#002e72]/95 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white p-8 max-w-sm w-full shadow-2xl text-center border border-neutral-200">
+      <div class="w-12 h-12 bg-[#002e72]/5 text-[#002e72] mx-auto flex items-center justify-center mb-3">
+        <iconify-icon icon="solar:lock-bold" class="text-2xl"></iconify-icon>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-[#1c1d22]">Akses Kurator NSLC 2026</h3>
+      <p class="text-xs text-neutral-500 mt-1 mb-5">Halaman ini khusus untuk panitia dan tim kurasi berkas.</p>
+
+      <div class="space-y-3">
+        <input type="password" id="pin-input" maxlength="6" placeholder="PIN 6 Digit (123456)" class="w-full py-2.5 px-4 text-center tracking-[0.4em] font-mono text-xl border border-neutral-300 focus:border-[#002e72] outline-none">
+        <button onclick="unlock()" class="w-full bg-[#002e72] hover:bg-[#f4af40] text-white hover:text-[#1c1d22] py-3 text-xs font-bold uppercase tracking-wider transition-colors">
+          Buka Portal Kurasi
+        </button>
+        <p id="pin-err" class="text-xs text-red-600 hidden font-medium">PIN tidak sesuai. Silakan coba lagi.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT-SIDE SCRIPT LOGIC -->
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvi5k9wsnZTIrMLGAOKGdU3kn3r61ERIvvsX0cDqi9yLh2TTEfDnRepQEu1gNybmzYTA/exec';
+    
+    // Candidates Data Loaded from Google Sheets (Saved locally in localStorage if modified)
+    let candidates = JSON.parse(localStorage.getItem('nslc_candidates_data')) || [{"id": 1, "name": "Naufal Rafi Al Khalafi", "school": "SMAN 1 MOJOLABAN", "city": "Solo & Jawa Tengah", "province": "Jawa Tengah", "role": "Ketua 1", "whatsapp": "85803422833", "email": "orlin8181@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/13EMqY84hjRPDtGTpv8tUGiv6DgXgZnio?usp=sharing", "folderId": "13EMqY84hjRPDtGTpv8tUGiv6DgXgZnio", "score": 0, "status": "Pending", "notes": ""}, {"id": 2, "name": "Repa Luthfia Sukmawati", "school": "SMAN 1 KUNINGAN", "city": "Kuningan, Jawa Barat", "province": "Jawa Barat", "role": "Ketua OSIS SMA NEGERI 1 KUNINGAN / BENDAHARA UMUM FON", "whatsapp": "89664906473", "email": "repaluthfia@gmail.com", "lens": "Science, Technology & AI", "driveLink": "https://drive.google.com/drive/folders/1TWqtDwiOyy-lwaY6rJyyDtWDm6aFHyc9", "folderId": "1TWqtDwiOyy-lwaY6rJyyDtWDm6aFHyc9", "score": 0, "status": "Pending", "notes": ""}, {"id": 3, "name": "Fransiska Adriana Hillary Putri Waluyan", "school": "SMAN 76 JAKARTA", "city": "Jakarta Timur, DKI Jakarta", "province": "DKI Jakarta", "role": "WAKIL KETUA MPK", "whatsapp": "88976595387", "email": "liuliolio5@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1_imHDWL_vSkAd8JXk8NrK3iAD7Gn8E3C", "folderId": "1_imHDWL_vSkAd8JXk8NrK3iAD7Gn8E3C", "score": 0, "status": "Pending", "notes": ""}, {"id": 4, "name": "Enzo El Hadji Mohammad", "school": "SMAN 3 Mataram", "city": "Nusa Tenggara Barat, Kota Mataram", "province": "Nusa Tenggara Barat", "role": "Ketua PIK - R / Ketua Olimpiade Ekonomi", "whatsapp": "85338435908", "email": "pokedotkomet@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1Z3BgMwFTndJBFnt7JFX-yDmJZRofE6xT", "folderId": "1Z3BgMwFTndJBFnt7JFX-yDmJZRofE6xT", "score": 0, "status": "Pending", "notes": ""}, {"id": 5, "name": "Elvaretta Hayfa Almaqhfira", "school": "SMAN 9 Semarang", "city": "Jawa Tengah", "province": "Jawa Tengah", "role": "Vice Leader NGO", "whatsapp": "895393348609", "email": "ellvrrh@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1KDHqtxmQTn2lbr_ZP9-feYge1aaJ7Dax?usp=sharing", "folderId": "1KDHqtxmQTn2lbr_ZP9-feYge1aaJ7Dax", "score": 0, "status": "Pending", "notes": ""}, {"id": 6, "name": "Tasya Aulia Nugroho", "school": "SMK Mahadhika 4", "city": "Jakarta Timur, DKI Jakarta", "province": "DKI Jakarta", "role": "Wakil Ketua Osis", "whatsapp": "89609154300", "email": "tasyaaulianugrogo18@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1mJkQHR4It3fqMXh7yOMML_q2EEjyIarR", "folderId": "1mJkQHR4It3fqMXh7yOMML_q2EEjyIarR", "score": 0, "status": "Pending", "notes": ""}, {"id": 7, "name": "Apriani Rombebua Siampa", "school": "SMAN 1 Berau", "city": "Berau, Kaltim", "province": "Kalimantan Timur", "role": "Ketua OSIS", "whatsapp": "82255850304", "email": "rombebuasiampa@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1ykI1YiiSVmf4xgUhPZB4Mrs-87xDwtXp", "folderId": "1ykI1YiiSVmf4xgUhPZB4Mrs-87xDwtXp", "score": 0, "status": "Pending", "notes": ""}, {"id": 8, "name": "Ridho Putra Riyadi", "school": "SMAN 5 Tasikmalaya", "city": "Kota Tasikmalaya", "province": "Jawa Barat", "role": "Ketua Umum Forum OSIS Jawa Barat Gen 14", "whatsapp": "87833849154", "email": "ridhoputrariyadi22@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1EypuIulPvBv9DbiGLwdBmmlHZ8eY0SXe", "folderId": "1EypuIulPvBv9DbiGLwdBmmlHZ8eY0SXe", "score": 0, "status": "Pending", "notes": ""}, {"id": 9, "name": "Haekal Daud Abdubaari Tridyan Swid", "school": "SMA MUHAMMADIYAH 9 KOTA BEKASI", "city": "Bekasi, Jawa Barat", "province": "Jawa Barat", "role": "KETUA UMUM", "whatsapp": "85183115177", "email": "haekaldats977@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1vPlQjmBu9mtV-_FqmtT3_1n8U-b_fcDs", "folderId": "1vPlQjmBu9mtV-_FqmtT3_1n8U-b_fcDs", "score": 0, "status": "Pending", "notes": ""}, {"id": 10, "name": "Ayesha Khizie", "school": "SMA ISLAM ALAM DAN SAINS AL-JANNAH", "city": "Jawa Barat", "province": "Jawa Barat", "role": "Ketua OSIS", "whatsapp": "81311730473", "email": "ayeshakhizie@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1p3zW4X-0b3Jo1XKU9CGresP_Zuofrerf?usp=sharing", "folderId": "1p3zW4X-0b3Jo1XKU9CGresP_Zuofrerf", "score": 0, "status": "Pending", "notes": ""}, {"id": 11, "name": "Intan Destianti", "school": "SMK FARMASI AS-SHIFA", "city": "bandung,jawa barat.", "province": "Jawa Barat", "role": "ketua kerohanian periode 2026-2027", "whatsapp": "89671160241", "email": "destiantiiintan@gmail.com", "lens": "Science, Technology & AI", "driveLink": "https://drive.google.com/drive/folders/17M6nW3xdDC4LAAzjMW7IIL2WMgpHwmAU", "folderId": "17M6nW3xdDC4LAAzjMW7IIL2WMgpHwmAU", "score": 0, "status": "Pending", "notes": ""}, {"id": 12, "name": "SYAHRIL NIZHOM NUR AL QODRI", "school": "SMA ISLAM ALAM DAN SAINS AL-JANNAH", "city": "JAWA BARAT", "province": "Jawa Barat", "role": "KETUA OSIS", "whatsapp": "81808344242", "email": "syahrilqodri4@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1WQd9oOdtEoydz7s5H4jB9vjSadB1hwJL?usp=sharing", "folderId": "1WQd9oOdtEoydz7s5H4jB9vjSadB1hwJL", "score": 0, "status": "Pending", "notes": ""}, {"id": 13, "name": "NASYWA AZ ZAYAN HANANI", "school": "SMAN 1 Purwakarta", "city": "Purwakarta, Jawa Barat", "province": "Jawa Barat", "role": "Ketua OSIS", "whatsapp": "97717581909", "email": "nasywahanani22@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1X4FGcEX5NBflOsX8ouSLTMvCIlvrDWZl", "folderId": "1X4FGcEX5NBflOsX8ouSLTMvCIlvrDWZl", "score": 0, "status": "Pending", "notes": ""}, {"id": 14, "name": "Faishal Afiif Ramadhan", "school": "SMAN 1 KLARI", "city": "KABUPATEN KARAWANG, JAWA BARAT", "province": "Jawa Barat", "role": "Ketua Divisi", "whatsapp": "85691774629", "email": "faishalafiiframadhanfaishal@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1BjljvBwhC0gj6O3Am2tNS7aEefEO9o78?usp=sharing", "folderId": "1BjljvBwhC0gj6O3Am2tNS7aEefEO9o78", "score": 0, "status": "Pending", "notes": ""}, {"id": 15, "name": "Theon Abinaya Saverio", "school": "SMAN 1 Parigi", "city": "Jawa Barat", "province": "Jawa Barat", "role": "Sekretaris Umum", "whatsapp": "81367934050", "email": "saveriotheon@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1iLUGvGdLBhum7Ja9xEMF2TPkzhYH3Bnd?usp=sharing", "folderId": "1iLUGvGdLBhum7Ja9xEMF2TPkzhYH3Bnd", "score": 0, "status": "Pending", "notes": ""}, {"id": 16, "name": "Putri Caecillia Yahya", "school": "SMKN 1 Cimahi", "city": "Cimahi, Jabar", "province": "Jawa Barat", "role": "Ketua 1 FOJB", "whatsapp": "811845177", "email": "putricyahya01@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1_UpPNe8cc967fhQ4QTrdgpJVJaaGH3lQ", "folderId": "1_UpPNe8cc967fhQ4QTrdgpJVJaaGH3lQ", "score": 0, "status": "Pending", "notes": ""}, {"id": 17, "name": "Muhammad Rayhan Syahputra", "school": "SMA NEGERI 1 KOTA TANGERANG SELATAN", "city": "Tangerang Selatan & Banten", "province": "Banten", "role": "Wakil Ketua Umum bidang Eksternal Forum MPK Provinsi Banten", "whatsapp": "81290850949", "email": "reygtg07@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1nycBXH03RcQoiEfg77Vl4FXGsuUnrk9n", "folderId": "1nycBXH03RcQoiEfg77Vl4FXGsuUnrk9n", "score": 0, "status": "Pending", "notes": ""}, {"id": 18, "name": "Nurlaela Siti Hajar", "school": "SMAN 1 Ciasem", "city": "Subang, Jabar", "province": "Jawa Barat", "role": "Ketua MPK", "whatsapp": "83155534112", "email": "nurlaelasthjr@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1fnSdQxve__iHm_zsmGGIfadVwGp0JSKX", "folderId": "1fnSdQxve__iHm_zsmGGIfadVwGp0JSKX", "score": 0, "status": "Pending", "notes": ""}, {"id": 19, "name": "Galih Iskandar", "school": "SMA Negeri 1 Ciasem", "city": "Subang, Jawa Barat", "province": "Jawa Barat", "role": "Ketua OSIS", "whatsapp": "0823-7792-8850", "email": "galihiskandar6428@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1hs5R6flUF6L2ZrZe5j64H4kVJRtiEKH0?usp=sharing", "folderId": "1hs5R6flUF6L2ZrZe5j64H4kVJRtiEKH0", "score": 0, "status": "Pending", "notes": ""}, {"id": 20, "name": "Salsabila Nuria Muharam", "school": "SMAN 4 KOTA BANDUNG", "city": "Kota Bandung, Jawa Barat", "province": "Jawa Barat", "role": "Ketua Umum Forum Osis Jawa Barat Generasi 13", "whatsapp": "882001082352", "email": "salsabilanuria49@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1VerG8hG7CkLxOJrYOLs_J1VQSb9GLp4W", "folderId": "1VerG8hG7CkLxOJrYOLs_J1VQSb9GLp4W", "score": 0, "status": "Pending", "notes": ""}, {"id": 21, "name": "Sabila Putri Andani", "school": "SMKS Telekomedika", "city": "Kota Bogor", "province": "Jawa Barat", "role": "Ketua OSIS", "whatsapp": "881010125184", "email": "bbieeyaa@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/16JkRm0UAdobBtKtVWFu6249dvWOboQ2P?usp=sharing", "folderId": "16JkRm0UAdobBtKtVWFu6249dvWOboQ2P", "score": 0, "status": "Pending", "notes": ""}, {"id": 22, "name": "Fakhih Khairy Dikantoro", "school": "SMK Penerbangan Angkasa Bogor", "city": "Bogor Kota, Jawa Barat", "province": "Jawa Barat", "role": "Wakil Ketua 2 OSIS", "whatsapp": "85714752059", "email": "fakhihkhay@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1ETkPT-FIMWZNSwtBSqMtxxhNcCsPtV88", "folderId": "1ETkPT-FIMWZNSwtBSqMtxxhNcCsPtV88", "score": 0, "status": "Pending", "notes": ""}, {"id": 23, "name": "Hafidz Al-Qodri", "school": "SMAIT Pesantren Nururrahman", "city": "Depok, Jawa Barat", "province": "Jawa Barat", "role": "Ketua Departemen MPK", "whatsapp": "87823078385", "email": "budimanhafidz4@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1rqgZkJlGM-NAic70iLsU0bmbq76MCKW8", "folderId": "1rqgZkJlGM-NAic70iLsU0bmbq76MCKW8", "score": 0, "status": "Pending", "notes": ""}, {"id": 24, "name": "Syifa Amrina Rosadan", "school": "SMAN 86 JAKARTA", "city": "Jakarta, DKI Jakarta", "province": "DKI Jakarta", "role": "Ketua Pradana", "whatsapp": "8978557142", "email": "syifaamrina22@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1HHeonFhZA2RyrI8Xh6Jq08IuWQKWLPKh", "folderId": "1HHeonFhZA2RyrI8Xh6Jq08IuWQKWLPKh", "score": 0, "status": "Pending", "notes": ""}, {"id": 25, "name": "Izzat Rizky Akasya", "school": "Ma ALKHAIRIYAH jakarta", "city": "Jakarta selatan", "province": "DKI Jakarta", "role": "Anggota pembinaan DKR", "whatsapp": "85774011057", "email": "izzatakasyaa@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1m8KivKsYHZOA_SMuYXbQU-71-W6dx_fX", "folderId": "1m8KivKsYHZOA_SMuYXbQU-71-W6dx_fX", "score": 0, "status": "Pending", "notes": ""}, {"id": 26, "name": "Muhammad Ridwan", "school": "SMKN 49", "city": "KOTA JAKARTA UTARA", "province": "DKI Jakarta", "role": "Pemangku adat Pramuka", "whatsapp": "895327714670", "email": "muhammadridwan268z@gmail.com", "lens": "Science, Technology & AI", "driveLink": "https://drive.google.com/drive/folders/1wPvwIMaMv2u3S1CC6fsCkKXa3T5zPF-c", "folderId": "1wPvwIMaMv2u3S1CC6fsCkKXa3T5zPF-c", "score": 0, "status": "Pending", "notes": ""}, {"id": 27, "name": "Dian Maharani", "school": "SMAN 116 Jakarta", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Ketua Pramuka", "whatsapp": "85280984189", "email": "ranitrash25@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1tlnsfvBb_7nUlLiUGDiXqthHM8fSFvk-", "folderId": "1tlnsfvBb_7nUlLiUGDiXqthHM8fSFvk-", "score": 0, "status": "Pending", "notes": ""}, {"id": 28, "name": "Fikri Maulana", "school": "Man 22 Jakarta", "city": "DKI JAKARTA", "province": "DKI Jakarta", "role": "wakil ketua dewan kerja ranting palmerah masa bakti 2026-2029 dan Pradana Putra/ketua eskul Pramuka Masa bakti 2026-2027", "whatsapp": "81316289327", "email": "maul61937@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1_akopxEHjClMF6DEZwJXpvyorF9nBHWP", "folderId": "1_akopxEHjClMF6DEZwJXpvyorF9nBHWP", "score": 0, "status": "Pending", "notes": ""}, {"id": 29, "name": "Putri Lediyani", "school": "SMKN 49 Jakarta", "city": "Jakarta Timur, DKI Jakarta", "province": "DKI Jakarta", "role": "Ketua komisi C", "whatsapp": "85161589549", "email": "putriledi013@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1pQoHKuxGfyh914wvCu1UwAN3AGDmGkil", "folderId": "1pQoHKuxGfyh914wvCu1UwAN3AGDmGkil", "score": 0, "status": "Pending", "notes": ""}, {"id": 30, "name": "Rizky Dian Yulianto", "school": "SMKN 47 JAKARTA", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Pemangku Adat | Pramuka", "whatsapp": "85710144142", "email": "suratnosumaryo@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1Xg_Z_KfQMI6UeZEjb3uqDzSUfFSQ1NIn?usp=sharing", "folderId": "1Xg_Z_KfQMI6UeZEjb3uqDzSUfFSQ1NIn", "score": 0, "status": "Pending", "notes": ""}, {"id": 31, "name": "ALIKA SYAROFATIL ULWIYAH", "school": "SMA LAPHAT PLUS", "city": "KOJA, JAKARTA UTARA", "province": "DKI Jakarta", "role": "PRAMUKA", "whatsapp": "85813561378", "email": "alikasyarofatil@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1K0LOs6Mcta09Ud22u_F5doNUWjSAH43n", "folderId": "1K0LOs6Mcta09Ud22u_F5doNUWjSAH43n", "score": 0, "status": "Pending", "notes": ""}, {"id": 32, "name": "Hanuna Laila Alifah", "school": "SMKN 41 Jakarta", "city": "Jakarta Selatan", "province": "DKI Jakarta", "role": "Pradana Putri", "whatsapp": "81298818511", "email": "hanunaalifah4@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1UR2byATEEVRZ1u8m6hBu5_B-8UkGNnrI", "folderId": "1UR2byATEEVRZ1u8m6hBu5_B-8UkGNnrI", "score": 0, "status": "Pending", "notes": ""}, {"id": 33, "name": "Abytama Miftah Raharja", "school": "SMAN 34 Jakarta", "city": "Jakarta", "province": "DKI Jakarta", "role": "Pradana", "whatsapp": "8118988851", "email": "abytmiftah2106@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1atCAwY2e_Wdvl40poLXvvESUP_zFom43", "folderId": "1atCAwY2e_Wdvl40poLXvvESUP_zFom43", "score": 0, "status": "Pending", "notes": ""}, {"id": 34, "name": "Andi Silmy Khaeru Syifa", "school": "SMAN 73 JAKARTA", "city": "Jakarta Utara, DKI JAKARTA", "province": "DKI Jakarta", "role": "Pradana Putri", "whatsapp": "89673451565", "email": "andisilmy0728@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1qH2HsAvq7lTx_--Qfpn20xKbR26YThxK", "folderId": "1qH2HsAvq7lTx_--Qfpn20xKbR26YThxK", "score": 0, "status": "Pending", "notes": ""}, {"id": 35, "name": "Marko Rafy Saverio", "school": "SMAN 37 Jakarta", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Wakil Ketua Dewan Kerja Ranting Tebet", "whatsapp": "88223902205", "email": "forrevenger01@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1ShCwLdwBm1s2MelFtjbdFaH-W4_OGyh1", "folderId": "1ShCwLdwBm1s2MelFtjbdFaH-W4_OGyh1", "score": 0, "status": "Pending", "notes": ""}, {"id": 36, "name": "Thimoty Veniel Alexsander Tinambunan", "school": "SMA Fons Vitae 2 jakarta utara", "city": "Jakarta Utara ,DKI jakarta", "province": "DKI Jakarta", "role": "Pradana pramuka", "whatsapp": "895352862014", "email": "minarsiregar168@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1TAp7liK1u3aNkamUrh7GAVwhm_Avso1q", "folderId": "1TAp7liK1u3aNkamUrh7GAVwhm_Avso1q", "score": 0, "status": "Pending", "notes": ""}, {"id": 37, "name": "muamar Khadafi bagabas", "school": "SMK Islam said naum", "city": "jakarta,DKI jakarta", "province": "DKI Jakarta", "role": "Pradana", "whatsapp": "81367809785", "email": "pyynyy613@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1uccbn96FwHApGkFuQcR61Ku1tiFpHgc2", "folderId": "1uccbn96FwHApGkFuQcR61Ku1tiFpHgc2", "score": 0, "status": "Pending", "notes": ""}, {"id": 38, "name": "Marvel Arkarayca", "school": "SMA Sumpah Pemuda", "city": "DK JAKARTA", "province": "DKI Jakarta", "role": "Pemangku Adat Dan Ketua OSIS", "whatsapp": "81574066672", "email": "markarayca@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1vVnX6sjebkfDSkcCS2UesgKGVCN4-uO0", "folderId": "1vVnX6sjebkfDSkcCS2UesgKGVCN4-uO0", "score": 0, "status": "Pending", "notes": ""}, {"id": 39, "name": "Shifa Khairunnisa", "school": "SMK Dwi Putri Husada", "city": "Bogor, Jawa Barat", "province": "Jawa Barat", "role": "Div. Study Exchange -Maju Bersama Osis-", "whatsapp": "89520462333", "email": "shifakhairunnis4@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://Drive.google.com", "folderId": "", "score": 0, "status": "Pending", "notes": ""}, {"id": 40, "name": "Darren Adhyaksa", "school": "SMAK Tirtamarta BPK Penabur", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Diplomatic Agent", "whatsapp": "82240406838", "email": "darren99adyaksa@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1hOz2GgUNK-IECI2Dz5SPi-xxS6YbJtdo", "folderId": "1hOz2GgUNK-IECI2Dz5SPi-xxS6YbJtdo", "score": 0, "status": "Pending", "notes": ""}, {"id": 41, "name": "rahmah azizah", "school": "smk alwashliyah", "city": "jakarta timur, dki jakarat", "province": "DKI Jakarta", "role": "dkr bidang kajian kepramukaan", "whatsapp": "89624217974", "email": "rrhmuuaa@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/12cNvqJfK9l2E_AJVLB2rbHhp-v9nJb-H", "folderId": "12cNvqJfK9l2E_AJVLB2rbHhp-v9nJb-H", "score": 0, "status": "Pending", "notes": ""}, {"id": 42, "name": "Elia Elbenson Tanoko Chung", "school": "SMAK Tunas Bangsa", "city": "KAB. TANGERANG", "province": "Banten", "role": "Diplomatic Affairs Zeekend", "whatsapp": "81290091131", "email": "elbenson2210@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/u/0/folders/1gGvgeNWHUH48y7EuSlqGcg7J881yEGl6", "folderId": "1gGvgeNWHUH48y7EuSlqGcg7J881yEGl6", "score": 0, "status": "Pending", "notes": ""}, {"id": 43, "name": "Sulis Zafitri", "school": "SMAN 1 CIASEM", "city": "Subang, Jabar", "province": "Jawa Barat", "role": "Ketua Jurnalistik", "whatsapp": "83894391258", "email": "suliszafitri@gmail.com", "lens": "Innovation in Public Policy & Bureaucracy", "driveLink": "https://drive.google.com/drive/folders/1nmd7aDiXsBcBrwJaU84RHr79wz2tgLO_", "folderId": "1nmd7aDiXsBcBrwJaU84RHr79wz2tgLO_", "score": 0, "status": "Pending", "notes": ""}, {"id": 44, "name": "SOFIYATUL ZANNAH", "school": "SMAN 28 KAB.Tangerang", "city": "KAB.Tangerang, Banten.", "province": "Banten", "role": "MBO (Divisi SDGS), OSIS (wakil Ketua)", "whatsapp": "895626746754", "email": "zannahsofiyatulzannah@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com", "folderId": "", "score": 0, "status": "Pending", "notes": ""}, {"id": 45, "name": "Susiawati", "school": "SMA SUMPAH PEMUDA", "city": "Jakarta Barat, DKI JAKARTA", "province": "DKI Jakarta", "role": "Pemangku adat", "whatsapp": "85716875428", "email": "susiawati924@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/12_i7sP440BajdVb5WxEzSipZYB1exPuD", "folderId": "12_i7sP440BajdVb5WxEzSipZYB1exPuD", "score": 0, "status": "Pending", "notes": ""}, {"id": 46, "name": "Andini Nasya Jaya Putri", "school": "SMKN 69 JAKARTA", "city": "Kota Jakarta Timur", "province": "DKI Jakarta", "role": "PUSDATIN Dewan Kerja Ranting Cakung", "whatsapp": "895400915718", "email": "sashaspersonal24@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/13uDMiUe6qKQRYwDsx2f1Op02uG-eW4WJ?usp=sharing", "folderId": "13uDMiUe6qKQRYwDsx2f1Op02uG-eW4WJ", "score": 0, "status": "Pending", "notes": ""}, {"id": 47, "name": "Keiko Indriani", "school": "SMK NEGRI 37 JAKARTA", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Ketua Divisi Diklat Pramuka", "whatsapp": "85941227317", "email": "Keikoindriani@gmail.com", "lens": "Business, Economy & Entrepreneurship", "driveLink": "https://drive.google.com/drive/folders/1fZBWaeGSy5A7E-Z2iDfYvaS9EvEauMZz", "folderId": "1fZBWaeGSy5A7E-Z2iDfYvaS9EvEauMZz", "score": 0, "status": "Pending", "notes": ""}, {"id": 48, "name": "Dwi Arya Affandi", "school": "SMKN 36 Jakarta", "city": "Jakarta", "province": "DKI Jakarta", "role": "Ketua Pramuka", "whatsapp": "85814568536", "email": "affandiarya11@gmail.com", "lens": "Research, Education & Learning", "driveLink": "https://drive.google.com/drive/folders/1udv5nVS3ivPylQf7LeWNq3qzctLHahsB", "folderId": "1udv5nVS3ivPylQf7LeWNq3qzctLHahsB", "score": 0, "status": "Pending", "notes": ""}, {"id": 49, "name": "HANUM IZMI SAFITRI", "school": "SMAN 86 JAKARTA", "city": "Jakarta Selatan, DKI Jakarta", "province": "DKI Jakarta", "role": "Sekretaris Pramuka", "whatsapp": "83874060880", "email": "hanumizmi06@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/16r1cd-lKuDrkf6Y7h7QXFej5bWt-150L?usp=sharing", "folderId": "16r1cd-lKuDrkf6Y7h7QXFej5bWt-150L", "score": 0, "status": "Pending", "notes": ""}, {"id": 50, "name": "Apta Sigi Anargya", "school": "SMAS Yaspen Tugu Ibu", "city": "Depok, Jawa Barat", "province": "Jawa Barat", "role": "Wakil Ketua II OSIS", "whatsapp": "895327978296", "email": "aptanargya21@gmail.com", "lens": "Arts, Society & Creativity", "driveLink": "https://drive.google.com/drive/folders/1JTKvalZ1OOqOeSp5u6RTbLEl4i7JynGM", "folderId": "1JTKvalZ1OOqOeSp5u6RTbLEl4i7JynGM", "score": 0, "status": "Pending", "notes": ""}, {"id": 51, "name": "Dimas Maulana Al Faqih", "school": "SMAS Al Hasra", "city": "Kota Depok, Jawa Barat", "province": "Jawa Barat", "role": "Pengurus OSIS", "whatsapp": "81289654895", "email": "dimasosis125@gmail.com", "lens": "Science, Technology & AI", "driveLink": "https://drive.google.com/drive/folders/10TgQCgrBY8WhFc_ruYWpoIzJuyJfrDbY?usp=drive_link", "folderId": "10TgQCgrBY8WhFc_ruYWpoIzJuyJfrDbY", "score": 0, "status": "Pending", "notes": ""}];
+    let selectedId = candidates[0].id;
+    let currentDocTab = 'folder';
+
+    // Status Ranking for Auto-Sort: Lolos (1) -> Pending (2) -> Tolak (3)
+    const STATUS_RANK = {
+      'Lolos': 1,
+      'Pending': 2,
+      'Tolak': 3
+    };
+
+    function getSortedAndFilteredCandidates() {
+      const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+      const lensFilter = document.getElementById('filter-lens')?.value || '';
+      const provFilter = document.getElementById('filter-prov')?.value || '';
+      const statusFilter = document.getElementById('filter-status')?.value || '';
+
+      return candidates.filter(c => {
+        const matchQuery = !query || 
+          c.name.toLowerCase().includes(query) || 
+          c.school.toLowerCase().includes(query) || 
+          c.city.toLowerCase().includes(query);
+        const matchLens = !lensFilter || c.lens.includes(lensFilter);
+        const matchProv = !provFilter || c.province === provFilter;
+        const matchStatus = !statusFilter || c.status === statusFilter;
+        return matchQuery && matchLens && matchProv && matchStatus;
+      }).sort((a, b) => {
+        const rankDiff = (STATUS_RANK[a.status] || 99) - (STATUS_RANK[b.status] || 99);
+        if (rankDiff !== 0) return rankDiff;
+        return (b.score || 0) - (a.score || 0);
+      });
+    }
+
+    function renderCandidateList() {
+      const list = getSortedAndFilteredCandidates();
+      const container = document.getElementById('candidates-container');
+      document.getElementById('filtered-count').innerText = `${list.length} dari ${candidates.length}`;
+
+      container.innerHTML = list.map(c => {
+        const isActive = c.id === selectedId;
+        const badgeColor = 
+          c.status === 'Lolos' ? 'bg-emerald-100 text-emerald-800' :
+          c.status === 'Tolak' ? 'bg-red-100 text-red-700' : 'bg-neutral-200 text-neutral-700';
+
+        return `
+          <div onclick="selectCandidate(${c.id})" class="candidate-card p-3.5 border-l-4 cursor-pointer transition-all ${isActive ? 'active border-[#002e72] bg-blue-50/70' : 'border-transparent hover:bg-neutral-50'}">
+            <div class="flex items-start justify-between gap-1">
+              <h4 class="text-xs font-bold ${isActive ? 'text-[#002e72]' : 'text-neutral-900'}">${c.name}</h4>
+              <span class="text-[9px] font-bold uppercase px-1.5 py-0.5 ${badgeColor}">${c.status}</span>
+            </div>
+            <p class="text-[11px] text-neutral-600 font-medium mt-0.5 truncate">${c.school}</p>
+            <p class="text-[10px] text-neutral-500 truncate">${c.city}</p>
+            <div class="mt-2 flex items-center justify-between text-[10px]">
+              <span class="text-neutral-500 truncate max-w-[210px]">${c.lens}</span>
+              <span class="font-bold ${c.score > 0 ? 'text-[#002e72]' : 'text-neutral-400'}">${c.score > 0 ? 'Skor: ' + c.score : 'Belum'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateHeaderStats();
+    }
+
+    function selectCandidate(id) {
+      selectedId = id;
+      const c = candidates.find(item => item.id === id);
+      if (!c) return;
+
+      document.getElementById('detail-name').innerText = c.name;
+      document.getElementById('detail-school').innerText = c.school;
+      document.getElementById('detail-city').innerText = `${c.city} (${c.province})`;
+      document.getElementById('detail-role').innerText = c.role;
+      document.getElementById('detail-email').innerText = c.email;
+      document.getElementById('detail-lens').innerText = c.lens;
+
+      const waClean = (c.whatsapp || '').replace(/\D/g, '');
+      const waLink = `https://wa.me/${waClean.startsWith('0') ? '62' + waClean.slice(1) : waClean}`;
+      const waElem = document.getElementById('detail-wa');
+      waElem.href = waLink;
+      waElem.querySelector('span').innerText = c.whatsapp || '-';
+
+      document.getElementById('input-score').value = c.score || '';
+      document.getElementById('input-notes').value = c.notes || '';
+      renderStatusButtons(c.status);
+
+      document.getElementById('external-drive-link').href = c.driveLink;
+      document.getElementById('placeholder-drive-btn').href = c.driveLink;
+
+      loadDocumentView();
+      renderCandidateList();
+    }
+
+    function switchDocTab(tabName) {
+      currentDocTab = tabName;
+      ['folder', 'essay', 'cv', 'twibbon'].forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tabName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      loadDocumentView();
+    }
+
+    function loadDocumentView() {
+      const c = candidates.find(item => item.id === selectedId);
+      if (!c) return;
+
+      const iframe = document.getElementById('drive-iframe');
+      let targetUrl = '';
+
+      if (c.folderId) {
+        targetUrl = `https://drive.google.com/embeddedfolderview?id=${c.folderId}#grid`;
+      } else if (c.driveLink) {
+        targetUrl = c.driveLink;
+      }
+
+      if (targetUrl) {
+        iframe.src = targetUrl;
+      }
+    }
+
+    function renderStatusButtons(activeStatus) {
+      const bLolos = document.getElementById('btn-status-lolos');
+      const bTolak = document.getElementById('btn-status-tolak');
+
+      bLolos.className = `p-2.5 text-center text-xs font-bold border transition-all ${activeStatus === 'Lolos' ? 'border-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm' : 'border-neutral-300 text-neutral-700 hover:border-emerald-600'}`;
+      bTolak.className = `p-2.5 text-center text-xs font-bold border transition-all ${activeStatus === 'Tolak' ? 'border-2 border-red-600 bg-red-50 text-red-900 shadow-sm' : 'border-neutral-300 text-neutral-700 hover:border-red-600'}`;
+    }
+
+    function setCandidateStatus(newStatus) {
+      const c = candidates.find(item => item.id === selectedId);
+      if (c) {
+        c.status = newStatus;
+        renderStatusButtons(newStatus);
+        renderCandidateList();
+      }
+    }
+
+    function saveCurrentCandidate() {
+      const c = candidates.find(item => item.id === selectedId);
+      if (c) {
+        c.score = parseInt(document.getElementById('input-score').value) || 0;
+        c.notes = document.getElementById('input-notes').value.trim();
+
+        // Save locally in browser
+        localStorage.setItem('nslc_candidates_data', JSON.stringify(candidates));
+
+        // Sync with Google Sheets backend via keepalive
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          keepalive: true,
+          body: JSON.stringify({
+            action: 'saveCuration',
+            candidateId: c.id,
+            email: c.email,
+            status: c.status,
+            score: c.score,
+            notes: c.notes
+          })
+        }).catch(err => console.log('Sync to sheets:', err));
+        
+        // Visual feedback
+        const alertBox = document.getElementById('save-alert');
+        alertBox.classList.remove('hidden');
+        setTimeout(() => alertBox.classList.add('hidden'), 2500);
+
+        renderCandidateList();
+
+        // Auto move to next
+        const currentList = getSortedAndFilteredCandidates();
+        const currentIndex = currentList.findIndex(item => item.id === selectedId);
+        if (currentIndex < currentList.length - 1) {
+          selectCandidate(currentList[currentIndex + 1].id);
+        }
+      }
+    }
+
+    function updateHeaderStats() {
+      const total = candidates.length;
+      const lolos = candidates.filter(c => c.status === 'Lolos').length;
+      const tolak = candidates.filter(c => c.status === 'Tolak').length;
+      const pending = candidates.filter(c => c.status === 'Pending').length;
+
+      document.getElementById('stat-total').innerText = total;
+      document.getElementById('stat-lolos').innerText = lolos;
+      document.getElementById('stat-tolak').innerText = tolak;
+      document.getElementById('stat-pending').innerText = pending;
+
+      document.getElementById('modal-count-lolos').innerText = lolos;
+      document.getElementById('modal-count-tolak').innerText = tolak;
+      updateModalPreview();
+    }
+
+    function updateModalPreview() {
+      const scope = document.querySelector('input[name="blast_scope"]:checked')?.value || 'lolos_only';
+      const lolos = candidates.filter(c => c.status === 'Lolos').length;
+      const tolak = candidates.filter(c => c.status === 'Tolak').length;
+
+      const recipientSpan = document.getElementById('modal-recipients-count');
+      const titleSpan = document.getElementById('preview-target-title');
+      const subjectSpan = document.getElementById('preview-subject-text');
+      const descSpan = document.getElementById('preview-body-desc');
+
+      if (scope === 'lolos_only') {
+        recipientSpan.innerText = `${lolos} email (Peserta Lolos)`;
+        titleSpan.innerText = 'Preview Subjek Email Peserta Lolos (Undangan Resmi):';
+        subjectSpan.innerText = '[PENGUMUMAN SELEKSI NSLC 2026] Selamat, Anda Terpilih Menjadi Delegasi Resmi';
+        descSpan.innerText = 'Email berisi ucapan selamat, surat undangan resmi, detail venue University Club, dan link grup WhatsApp delegasi.';
+      } else if (scope === 'tolak_only') {
+        recipientSpan.innerText = `${tolak} email (Peserta Belum Lolos)`;
+        titleSpan.innerText = 'Preview Subjek Email Apresiasi (Belum Lolos):';
+        subjectSpan.innerText = 'Apresiasi & Hasil Seleksi Berkas National Student Leaders Conference 2026';
+        descSpan.innerText = 'Email bernada hangat, sangat menghargai ide dan kepemimpinan peserta, serta menyertakan undangan jejaring komunitas IFLH.';
+      } else {
+        recipientSpan.innerText = `${candidates.length} email (Seluruh 51 Peserta)`;
+        titleSpan.innerText = 'Preview Pengiriman Serentak ke Seluruh Peserta:';
+        subjectSpan.innerText = 'Email Lolos (ke ${lolos} delegasi) & Email Apresiasi Halus (ke ${tolak} peserta)';
+        descSpan.innerText = 'Sistem membedakan otomatis isi email yang dikirim berdasarkan status keputusan masing-masing kandidat.';
+      }
+    }
+
+    function openFinalizeModal() {
+      updateHeaderStats();
+      document.getElementById('finalize-modal').showModal();
+    }
+
+    function triggerBlastEmail() {
+      const scope = document.querySelector('input[name="blast_scope"]:checked')?.value;
+      const lolos = candidates.filter(c => c.status === 'Lolos');
+      const tolak = candidates.filter(c => c.status === 'Tolak');
+
+      if (scope === 'lolos_only' && lolos.length === 0) {
+        alert('Belum ada peserta yang ditandai LOLOS. Silakan kurasi dan tentukan peserta lolos terlebih dahulu.');
+        return;
+      }
+
+      if (!confirm('Apakah Anda yakin ingin memproses pengiriman email pengumuman resmi sekarang?')) {
+        return;
+      }
+
+      const btn = document.getElementById('btn-blast-exec');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Mengirim Email Pengumuman Massal...</span>';
+
+      // Send blast request to Google Apps Script
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        keepalive: true,
+        body: JSON.stringify({
+          action: 'blastAnnouncement',
+          scope: scope,
+          candidates: candidates.map(c => ({
+            id: c.id,
+            email: c.email,
+            name: c.name,
+            school: c.school,
+            lens: c.lens,
+            status: c.status
+          }))
+        })
+      }).then(() => {
+        alert('Sukses! Permintaan pengiriman email blast resmi telah berhasil diproses oleh sistem nslc@iflhub.web.id.');
+      }).catch(err => {
+        console.error('Blast error:', err);
+        alert('Permintaan blast email telah dikirimkan ke server pengiriman nslc@iflhub.web.id.');
+      }).finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Kirim Pengumuman Sekarang</span>';
+        document.getElementById('finalize-modal').close();
+      });
+    }
+
+    function lockScreen() { 
+      sessionStorage.removeItem('nslc_auth');
+      document.getElementById('lock-modal').classList.remove('hidden'); 
+    }
+
+    function unlock() {
+      const pin = document.getElementById('pin-input').value;
+      if (pin === '123456') {
+        sessionStorage.setItem('nslc_auth', 'ok');
+        document.getElementById('lock-modal').classList.add('hidden');
+        document.getElementById('pin-err').classList.add('hidden');
+        document.getElementById('pin-input').value = '';
+      } else {
+        document.getElementById('pin-err').classList.remove('hidden');
+      }
+    }
+
+    // Check auth on load
+    if (!sessionStorage.getItem('nslc_auth')) {
+      lockScreen();
+    }
+
+    // Init
+    selectCandidate(candidates[0].id);
+  </script>
+</body>
+</html>
