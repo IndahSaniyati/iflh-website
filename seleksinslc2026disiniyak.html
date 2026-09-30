@@ -83,6 +83,12 @@
         <span class="text-red-300">Tolak: <strong id="stat-tolak" class="font-semibold">0</strong></span>
       </div>
 
+      <!-- Sinkronkan Live Data Button -->
+      <button onclick="syncCurationFromSheets(true)" id="btn-sync" title="Tarik pembaruan status dan penilaian terbaru dari Google Sheets" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-3 py-2 text-xs font-medium transition-all flex items-center gap-1.5 min-h-[38px]">
+        <svg id="sync-icon" class="w-3.5 h-3.5 text-[#f4af40]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <span id="sync-text">Sinkronkan</span>
+      </button>
+
       <button onclick="openFinalizeModal()" class="bg-[#f4af40] hover:bg-white text-[#1c1d22] hover:text-[#002e72] px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex items-center gap-2 min-h-[38px]">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         <span>Finalisasi &amp; Kirim Pengumuman</span>
@@ -153,7 +159,7 @@
     <!-- RIGHT PANEL: PREVIEW & SCORING -->
     <section class="flex-1 flex flex-col lg:flex-row overflow-hidden bg-neutral-100">
 
-      <!-- IN-PAGE DIRECT VIEWER -->
+      <!-- IN-PAGE DIRECT VIEWER (CV FIRST, ESSAY SECOND, TWIBBON THIRD, FOLDER FAR RIGHT) -->
       <div class="flex-1 flex flex-col bg-white border-r border-neutral-200 overflow-hidden">
         
         <!-- Document Tabs Navigation (CV first, Folder on the far right) -->
@@ -190,7 +196,7 @@
           </a>
         </div>
 
-        <!-- Clean Sub-Bar: ONLY Active File Name (Cleaned as requested, no redundant duplicate chips) -->
+        <!-- Clean Sub-Bar: Active File Status Only -->
         <div class="px-4 py-2 bg-neutral-100/90 border-b border-neutral-200 flex items-center justify-between text-xs text-neutral-600 shrink-0">
           <div class="flex items-center gap-2 truncate flex-1">
             <span class="text-neutral-400 font-light shrink-0">Berkas Terbuka:</span>
@@ -289,7 +295,7 @@
               <span>Simpan Penilaian</span>
             </button>
             <p id="save-alert" class="text-xs text-emerald-700 text-center mt-2.5 hidden font-medium">
-              Penilaian tersimpan dan daftar otomatis ter-sortir.
+              Penilaian tersimpan ke Sheets dan daftar otomatis ter-sortir.
             </p>
           </div>
         </div>
@@ -442,6 +448,57 @@
       'Pending': 2,
       'Tolak': 3
     };
+
+    // SINKRONISASI DUA ARAH DENGAN GOOGLE SHEETS
+    async function syncCurationFromSheets(showNotice = false) {
+      const syncIcon = document.getElementById('sync-icon');
+      const syncText = document.getElementById('sync-text');
+
+      if (syncIcon) syncIcon.classList.add('animate-spin');
+      if (syncText) syncText.innerText = 'Sinkron...';
+
+      try {
+        const res = await fetch(SCRIPT_URL, { method: 'GET' });
+        const json = await res.json();
+
+        if (json && json.status === 'success' && json.data) {
+          let countUpdated = 0;
+          candidates.forEach(c => {
+            const emailKey = (c.email || '').trim().toLowerCase();
+            if (json.data[emailKey]) {
+              const remote = json.data[emailKey];
+              if (remote.status && (remote.status === 'Lolos' || remote.status === 'Tolak' || remote.status === 'Pending')) {
+                c.status = remote.status;
+              }
+              if (remote.score !== undefined && remote.score !== '') {
+                c.score = parseInt(remote.score) || 0;
+              }
+              if (remote.notes !== undefined) {
+                c.notes = remote.notes || '';
+              }
+              countUpdated++;
+            }
+          });
+
+          localStorage.setItem('nslc_candidates_data', JSON.stringify(candidates));
+          renderCandidateList();
+          selectCandidate(selectedId);
+
+          if (showNotice) {
+            alert('Berhasil tersinkronisasi! Progres penilaian dari panitia lain telah diperbarui.');
+          }
+        }
+      } catch (err) {
+        console.log('Sync note:', err);
+        if (showNotice) {
+          alert('Belum ada pembaruan di server atau koneksi sedang sibuk.');
+        }
+      } finally {
+        if (syncIcon) syncIcon.classList.remove('animate-spin');
+        if (syncText) syncText.innerText = 'Tersinkron';
+        setTimeout(() => { if (syncText) syncText.innerText = 'Sinkronkan'; }, 2500);
+      }
+    }
 
     function getSortedAndFilteredCandidates() {
       const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
@@ -810,6 +867,7 @@ iflhub.web.id | nslc@iflhub.web.id`;
         document.getElementById('lock-modal').classList.add('hidden');
         document.getElementById('pin-err').classList.add('hidden');
         document.getElementById('pin-input').value = '';
+        syncCurationFromSheets(false);
       } else {
         document.getElementById('pin-err').classList.remove('hidden');
       }
@@ -817,7 +875,16 @@ iflhub.web.id | nslc@iflhub.web.id`;
 
     if (!sessionStorage.getItem('nslc_auth')) {
       lockScreen();
+    } else {
+      syncCurationFromSheets(false);
     }
+
+    // Auto-sync in background every 45 seconds so all curators see live updates
+    setInterval(() => {
+      if (sessionStorage.getItem('nslc_auth')) {
+        syncCurationFromSheets(false);
+      }
+    }, 45000);
 
     // Init
     selectCandidate(candidates[0].id);
