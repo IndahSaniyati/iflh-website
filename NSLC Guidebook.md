@@ -115,8 +115,8 @@ Rangkaian Kegiatan selama NSLC 2026 dirancang untuk menghubungkan peserta dengan
   Asisten Khusus Presiden Republik Indonesia  
 * **Windy Natriavi**  
   Senior Vice President Development Investment di Danantara DMF  
-* **Achmad Zaky**  
-  Co-Founder Bukalapak & Init-6  
+* **Ajar Edi**  
+  Senior Vice President Regulatory & Government Affairs Indosat  
 * **Fauzan Zidni**  
   Produser Film & Ketua Badan Perfilman Indonesia
 
@@ -180,35 +180,34 @@ National Student Leaders Conference 2026 terbuka bagi:
 
 | Waktu | HARI 1 — *CONNECT & EXPLORE* |
 | ----- | ----- |
-| **08.00–09.00** | **Kedatangan & Registrasi**Check-in, pembagian ID card dan participant kit, serta pembagian kelompok. |
-| **09.00–09.30** | **Sambutan Pembukaan — Miftah Sabri** Sambutan pembuka dan pengantar mengenai tujuan serta semangat program. |
-| **09.30–11.00** | **Sesi Perkenalan & *Icebreaker***Icebreakers dan aktivitas kelompok untuk membangun koneksi antarpeserta. |
-| **11.00–12.30** | **Sesi 1 — *Keynote: The World We Are In* (Dirgayuza Setiawan)**Memahami perubahan besar yang sedang terjadi di dunia dan bagaimana Indonesia berada di tengah perubahan tersebut. |
-| **12.30–13.30** | **Makan Siang** |
-| **13.30–15.00** | **Sesi 2 — *Innovation in Public Policy* (Windy Natriavi)** Bagaimana kebijakan publik merespons perubahan dan bagaimana inovasi dapat digunakan untuk menyelesaikan persoalan masyarakat. |
-| **15.00–15.30** | **Istirahat** |
-| **15.30–17.00** | **Sesi 3 — *Business, Economy & Entrepreneurship*** Membahas bagaimana ekonomi dan dunia bisnis bekerja, bagaimana entrepreneur menciptakan nilai, serta peluang yang muncul dari perubahan dunia. |
-| **17.00–18.00** | **Refleksi Kelompok**Peserta merefleksikan berbagai perspektif yang mereka dapatkan sepanjang hari dan mendiskusikan pertanyaan atau insight yang muncul dalam kelompok. |
-| **18.00–19.00** | **Makan Malam & Bonding**Makan malam bersama dan aktivitas informal untuk memperkuat koneksi antarpeserta. |
-| **19.00–20.30** | **Persiapan Proyek Kreatif**Peserta menentukan ide, format, dan pembagian peran untuk karya yang akan dibuat pada hari kedua. |
-| **20.30** | **Penutup** |
+| **08.00–09.00** | **Kedatangan & Registrasi** Check-in, pembagian participant kit dan ID card. |
+| **09.00–09.05** | **Pembukaan & Menyanyikan Indonesia Raya** Pembukaan resmi National Student Leaders Conference 2026. |
+| **09.05–09.30** | **Sambutan Pembukaan — Miftah Sabri** Sambutan pembuka dan pengantar mengenai visi, kepemimpinan, dan semangat program. |
+| **09.30–11.00** | **Sesi Perkenalan & Ice Breaking** Membangun keakraban, pembagian kelompok, pengenalan mentor, dan yel-yel antardelegasi. |
+| **11.00–12.30** | **Sesi 1 — *Innovation in Public Policy* (Windy Natriavi)** Inovasi kebijakan publik, mobilisasi modal pembangunan, dan solusi terukur persoalan sosial. |
+| **12.30–13.30** | **Makan Siang** Santap siang bersama di University Club Jakarta dan ramah tamah antarpelajar. |
+| **13.30–15.00** | **Sesi 2 — *The World We Are In* (Dirgayuza Setiawan)** Memahami perubahan besar yang sedang terjadi di dunia dan bagaimana posisi Indonesia di tengahnya. |
+| **15.00–15.30** | **Istirahat** Coffee break dan jeda antar sesi. |
+| **15.30–17.00** | **Persiapan Proyek Kreatif** Briefing proyek, penentuan isu prioritas, perumusan problem statement, dan pembagian peran tim. |
+| **18.00–19.00** | **Makan Malam & Bonding** Ishoma, makan malam bersama, dan aktivitas mempererat jejaring antardelegasi. |
+| **19.00–19.30** | **Penutup & Mobilisasi ke Penginapan** Penutupan agenda hari pertama dan mobilisasi delegasi menuju penginapan. |
 
 &nbsp;
 
 | Waktu | HARI KE-2 — *LEARN, EXPERIENCE & CREATE* |
 | ----- | ----- |
-| **08.00–09.00** | **Kedatangan** Kedatangan dan persiapan peserta. |
-| **09.00–09.30** | **Day 1  Recap: “One Thing I’m Taking With Me”** Peserta menuliskan satu hal yang paling berkesan dari hari pertama, kemudian membagikannya secara singkat dalam kelompok. |
-| **09.30–11.00** | **Sesi 4 — Science, Technology & AI**Bagaimana perkembangan sains, teknologi, dan AI mengubah cara kita hidup, bekerja, dan membayangkan masa depan. |
-| **11.00–12.30** | **Sesi  5 — Arts, Society & Creativity**Bagaimana seni, budaya, dan kreativitas membentuk cara manusia memahami dunia dan menciptakan perubahan. |
-| **12.30–13.30** | **Makan Siang** |
-| **13.30–15.00** | **Kunjungan Institusional**Kunjungan ke institusi atau lokasi yang memberikan pengalaman langsung dan perspektif baru mengenai salah satu tema yang dibahas selama program. |
-| **15.00–15.30** | **Kunjungan Institusional**Melanjutkan eksplorasi dan interaksi selama kunjungan. |
-| **15.30–17.00** | **Perjalanan Balik ke Venue**Peserta kembali ke venue dan mempersiapkan diri untuk sesi kreatif. |
-| **17.00–18.00** | **Proyek Kreatif**Peserta mulai mengembangkan karya berdasarkan wawasan dan pengalaman yang diperoleh selama program. |
-| **18.00–19.00** | **Makan Malam & Melanjutkan Proyek Kreatif**Peserta melanjutkan pengerjaan dan mempersiapkan karya untuk dipresentasikan. |
-| **19.00–20.30** | **Presentasi & Penutup**Peserta mempresentasikan karya yang telah dibuat, dilanjutkan dengan refleksi dan penutupan program. |
-| **20.30** | **Penutup** |
+| **08.00–08.50** | **Kedatangan** Presensi kehadiran dan persiapan mengawali hari kedua. |
+| **08.50–09.00** | **Senam Pagi** Peregangan fisik dan energizer pagi bersama seluruh delegasi. |
+| **09.00–09.30** | **Day 1 Recap: “One Thing I’m Taking With Me”** Refleksi pembelajaran paling bermakna dari hari pertama dalam kelompok masing-masing. |
+| **09.30–11.00** | **Proyek Kreatif** Pengembangan karya dan implementasi ide berdasarkan pembelajaran program. |
+| **11.00–12.30** | **Sesi 3 — *Arts, Society & Creativity* (Fauzan Zidni)** Bahasa sinema, narasi budaya, dan kekuatan ekspresi seni dalam menjaga nilai-nilai kemanusiaan. |
+| **12.30–13.30** | **Makan Siang** Istirahat siang dan santap siang bersama. |
+| **13.30–15.00** | **Sesi 4 — *Business, Tech & Governance* (Ajar Edi)** Regulasi telekomunikasi, transformasi digital, tata kelola teknologi, dan sinergi kebijakan publik. |
+| **15.00–16.00** | **Finalisasi Proyek Kreatif** Penyempurnaan materi dan persiapan teknis presentasi proyek tiap kelompok. |
+| **16.00–16.30** | **Perpustakaan The Sabri Podcast** Sesi interaktif dan eksplorasi literasi podcast serta ruang dialog inspiratif. |
+| **16.30–18.00** | **Presentasi Proyek Kreatif** Presentasi hasil karya kelompok delegasi di hadapan panel dan audiens. |
+| **18.00–19.00** | **Istirahat & Makan Malam** Makan malam dan istirahat menjelang sesi penutupan. |
+| **19.00–19.30** | **Awarding, Sertifikasi & Penutup** Pemberian penghargaan delegasi, penyerahan sertifikat resmi, foto bersama, dan penutupan konferensi. |
 
 &nbsp;
 
